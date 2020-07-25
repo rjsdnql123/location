@@ -2,6 +2,10 @@ import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import {User, UserProps} from './reducer/type'
+import axios from 'axios'
+import { AsyncStorage } from 'react-native';
+import App from '../App'
+//const axios = require('axios');
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
 class Login extends Component<UserProps,User> {
@@ -14,13 +18,30 @@ class Login extends Component<UserProps,User> {
 	}
 
 	// 이메일 형식인지 확인
-	CheckEmail = (email:string) => {
+	CheckEmail =  (email:string) => {
+		try {
 		const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 		const checkEmail = emailRegex.test(email);
 		if (!checkEmail) {
 			return alert('이메일 에러');
 		}
-		return alert('통과');
+		axios.post('http://localhost:8080/user/signin', {
+			email: this.state.email,
+			password: this.state.password,
+		}).then(async res => {
+			console.log(res)
+			if(res.status === 200) {
+				//성공시 메인 페이지
+				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
+				return alert('로그인 성공')
+			} else if(res.status === 404){
+				console.log('ddnc')
+			}
+		})
+	} catch (error) {
+		return alert('실패');
+		console.log('error')
+	}
 	};
 
 	render() {

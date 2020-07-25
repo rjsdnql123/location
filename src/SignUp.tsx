@@ -2,6 +2,8 @@ import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import {User, UserProps} from './reducer/type'
+import * as Location from 'expo-location'
+const axios = require('axios');
 
 //이메일, 비밀번호, 나이, 지역
 
@@ -13,22 +15,57 @@ class SignUp extends Component<UserProps, User> {
             password: '',
             nickname: '',
             location: '',
-            age: ''
+			age: '',
+			lat:0,
+			lng:0,
         }
     }
 
-    CheckEmail = (email:string) => {
+    CheckEmail = async (email:string) => {
 		const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 		const checkEmail = emailRegex.test(email);
 		if (!checkEmail) {
 			return alert('이메일 에러');
         }
-        //통과되면 서버에 요청을 보내 회원가입 요청 날리기
-		return alert('통과');
+		//통과되면 서버에 요청을 보내 회원가입 요청 날리기
+		await axios.post('http://localhost:8080/user/signup', {
+			email: this.state.email,
+			password: this.state.password,
+			nickname: this.state.nickname,
+			age: this.state.age,
+			location: this.state.location
+		})
+		alert('회원가입 완료');
+		//this.props.navigation 으로 login 화면으로 전환
+		this.props.navigation.navigate('Login')
 	};
 
+	getLocation = async () => {
+		const location = await Location.getCurrentPositionAsync()
+		console.log(location)
+		this.setState({
+			lat: location.coords.latitude,
+			lng: location.coords.longitude,
+		  });
+		  console.log('현재위치 lat', this.state.lat);
+		  console.log('현재위치 lng', this.state.lng);
+
+		  axios
+          .get(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=AIzaSyBJa16zJXi8NAp6ohe_h0mrjZqMUf8eLQA`,
+          ) // 위도, 경도 google maps api로 보냄
+          .then((res:any) => {
+			console.log(res,'이뭐야')
+            console.log('반환된 주소값', res.data.results[4].formatted_address);
+            const result = res.data.results[4].formatted_address.slice(5); // 앞에 대한민국은 뺀다.
+            console.log('최종 주소값', result);
+          })
+          .catch((error:any) => {
+            console.log('axios 구글 maps api 에러', error);
+          });
+	}
+	
     render() {
-        console.log(this.props)
         return(
             <View>
                 <Email>
@@ -48,8 +85,10 @@ class SignUp extends Component<UserProps, User> {
 					<TextInput value={this.state.age} onChangeText={(age) => this.setState({ age })} />
 				</Email>
                 <Email>
+					<TouchableOpacity onPress={() => this.getLocation()}>
 					<Text>location</Text>
 					<TextInput value={this.state.location} onChangeText={(location) => this.setState({ location })} />
+					</TouchableOpacity>
 				</Email>
                 <UserLogin onPress={() => this.CheckEmail(this.state.email)}>
 					<Text>Pick a photo</Text>
