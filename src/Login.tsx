@@ -5,6 +5,8 @@ import {User, UserProps} from './reducer/type'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native';
 import App from '../App'
+import { connect } from 'react-redux';
+import { setLogin } from './action';
 //const axios = require('axios');
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
@@ -33,6 +35,8 @@ class Login extends Component<UserProps,User> {
 			if(res.status === 200) {
 				//성공시 메인 페이지
 				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
+				this.props.dispatch(setLogin('asdfasdf'))
+				// this.props.navigation.navigate('AuthLoadingScreen'); // 작동됨
 				return alert('로그인 성공')
 			} else if(res.status === 404){
 				console.log('ddnc')
@@ -73,4 +77,12 @@ const Email = styled.View`
 const UserLogin = styled.TouchableOpacity`
 	background-color: blue;
 `;
-export default Login;
+// export default Login;
+const mapStateToProps = (state) => {
+	console.log(state,'mapstateto porps')
+	return {
+	  setLogin: state.reducer.setLogin,
+	  };
+  };
+
+  export default connect(mapStateToProps)(Login);
