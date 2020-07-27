@@ -1,16 +1,18 @@
-import { AuthLoding, SetLogin } from "../reducer/type";
-import { setLogin } from "../action";
+import { Posts, ReduxState } from "../reducer/type";
+import { setPost, setLogin } from "../action";
 import { connect } from "react-redux";
 import Main from "../components/Main";
-console.log(Main,'aasdffdssaff')
-const mapStateToProps = (state:AuthLoding) => {
+
+const mapStateToProps = (state:ReduxState) => {
+    console.log(state)
 	return {
-	  setLogin: state.reducer.setLogin,
+	  post: state.reducer.post,
 	  };
   };
   const mapDispatchToProps = (dispatch:Function) => {
       return {
-          isLogin: (userLogin: SetLogin) => dispatch(setLogin(userLogin))
+          postSet: (post: Posts[]) => dispatch(setPost(post)),
+          isLogin: (userLogin:string) => dispatch(setLogin(userLogin))
       }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,7 +1,7 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps, SetLogin, AuthLoding} from '../reducer/type'
+import {User, LoginProps} from '../reducer/type'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native';
 import App from '../../App'
@@ -10,8 +10,8 @@ import { setLogin } from '../action';
 //const axios = require('axios');
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
-class Login extends Component<UserProps,User> {
-	constructor(props:UserProps) {
+class Login extends Component<LoginProps,User> {
+	constructor(props:LoginProps) {
 		super(props);
 		this.state = {
 			email: '',
@@ -35,7 +35,7 @@ class Login extends Component<UserProps,User> {
 			if(res.status === 200) {
 				//성공시 메인 페이지
 				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
-				this.props.isLogin(setLogin('true'))
+				this.props.isLogin('true')
 				// this.props.navigation.navigate('AuthLoadingScreen'); // 작동됨
 				return alert('로그인 성공')
 			} else if(res.status === 404){

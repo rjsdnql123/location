@@ -1,18 +1,28 @@
-import { SET_LOGIN } from '../action'
-import { SetLogin } from './type';
+import { SET_LOGIN, SET_INFORMATION, SET_POST } from '../action'
+import { ReducerAction } from './type';
 
 
 const initialState = {
     setLogin: 'null',
+    information: {},
+    post: {}
   };
 
-const Reducer = (state = initialState, action:SetLogin) => {
+const Reducer = (state = initialState, action:ReducerAction) => {
     console.log(action,'이거뭔지알려주세요')
     switch (action.type) {
         case SET_LOGIN:
             return Object.assign({}, state, {
-                setLogin: action.setLogin.setLogin
+                setLogin: action.setLogin
             });
+        case SET_INFORMATION:
+            return Object.assign({}, state, {
+                information: action.setInformation
+            })
+        case SET_POST:
+            return Object.assign({}, state, {
+                post: action.post
+            })
         default:
             return state;
     }

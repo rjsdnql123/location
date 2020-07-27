@@ -6,7 +6,6 @@ import SignUp from './src/components/SignUp';
 import AuthLoadingScreen from './src/components/AuthLoadingScreen'
 import Main from './src/components/Main'
 import { AsyncStorage } from 'react-native';
-import {AppProps, AppState} from './src/reducer/type'
 import { Provider, connect } from 'react-redux';
 import { createStore, compose } from 'redux';
 import rootReducer from './src/reducer';

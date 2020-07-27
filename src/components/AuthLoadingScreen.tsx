@@ -19,6 +19,7 @@ class AuthLoadingScreen extends Component<Auth> {
   // usertoken을 가져오는 함수
   //서버로 토큰을 보내 토큰이 유효한지 보고 유효하다면 유지
   //유효하지 않다면 스토리지를 초기화 해 로그아웃 시키기
+  //토큰 기한이 말료되면 클라이언트에 토큰을 초기화 시키기
   getUserToken = async () => {
     // try {
     //   const value = await AsyncStorage.getItem('USERTOKEN');
@@ -44,15 +45,20 @@ class AuthLoadingScreen extends Component<Auth> {
         headers : {
           authorization: value
         }
-      }).then((result) => {
-        console.log(result.status)
-        if(result.status === 200) {
+      }).then(({ status, data }) => {
+        console.log(status)
+        if(status === 200) {
+          //유저의 정보를 id location 등을 업데이트 해서 redux에 저장한다?
           console.log('토큰 유효 메인페이지로 이동')
-          this.props.isLogin(setLogin('true'))
+          console.log(data,'result')
+          this.props.isLogin('true')
+          this.props.information({
+            user_Id: data.user_Id,
+          })
         } else {
           console.log('토큰 유효하지 않음 토큰 삭제후 로그인페이지')
           AsyncStorage.clear();
-          this.props.isLogin(setLogin('false'))
+          this.props.isLogin('false')
         }
       })
     } catch(error) {
