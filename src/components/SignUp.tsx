@@ -1,14 +1,15 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps} from '../reducer/type'
+import {User, LoginProps} from '../reducer/type'
 import * as Location from 'expo-location'
 const axios = require('axios');
+require('dotenv').config();
 
 //이메일, 비밀번호, 나이, 지역
 
-class SignUp extends Component<UserProps, User> {
-    constructor(props:UserProps) {
+class SignUp extends Component<LoginProps, User> {
+    constructor(props:LoginProps) {
         super(props)
         this.state = {
             email: '',
@@ -48,17 +49,20 @@ class SignUp extends Component<UserProps, User> {
 			lng: location.coords.longitude,
 		  });
 		  console.log('현재위치 lat', this.state.lat);
-		  console.log('현재위치 lng', this.state.lng);
-
+		  console.log('현재위치 lng', process);
+//역 지오코딩 이용해서 지역 찾기
 		  axios
           .get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=AIzaSyBJa16zJXi8NAp6ohe_h0mrjZqMUf8eLQA`,
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=${process.env.MAPS_API_KEY}`,
           ) // 위도, 경도 google maps api로 보냄
           .then((res:any) => {
 			console.log(res,'이뭐야')
-            console.log('반환된 주소값', res.data.results[4].formatted_address);
-            const result = res.data.results[4].formatted_address.slice(5); // 앞에 대한민국은 뺀다.
-            console.log('최종 주소값', result);
+            console.log('반환된 주소값', res.data.results[5].formatted_address);
+            const result = res.data.results[5].formatted_address.slice(5); // 앞에 대한민국은 뺀다.
+			console.log('최종 주소값', result);
+			this.setState({
+				location: result
+			})
           })
           .catch((error:any) => {
             console.log('axios 구글 maps api 에러', error);
@@ -66,6 +70,7 @@ class SignUp extends Component<UserProps, User> {
 	}
 	
     render() {
+		console.log(this.props,'signUp')
         return(
             <View>
                 <Email>
