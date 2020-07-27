@@ -1,18 +1,17 @@
 import { connect } from "react-redux";
 import AuthLoadingScreen from "../AuthLoadingScreen";
 import { setLogin } from "../action";
-console.log(setLogin,'setLogin')
+import { AuthLoding, SetLogin } from "../reducer/type";
 
-const mapStateToProps = (state) => {
-	console.log(state,'mapstateto porps')
+const mapStateToProps = (state:AuthLoding) => {
+  console.log(state,'이거뭐얏~')
 	return {
 	  setLogin: state.reducer.setLogin,
 	  };
   };
-const mapDispatchToProps = (dispatch, userLogin) => {
-  console.log(dispatch,'=====', userLogin)
+const mapDispatchToProps = (dispatch:Function) => {
     return {
-        onClick: () => dispatch(setLogin(userLogin))
+        isLogin: (userLogin: any) => dispatch(setLogin(userLogin))
     }
 }
 

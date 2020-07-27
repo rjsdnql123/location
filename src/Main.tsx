@@ -1,7 +1,7 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps} from './reducer/type'
+import {User, UserProps, SetLogin, AuthLoding} from './reducer/type'
 import * as Location from 'expo-location'
 const axios = require('axios');
 import { AsyncStorage } from 'react-native';
@@ -21,7 +21,7 @@ class Main extends Component<UserProps> {
             <View>
                 <TouchableOpacity onPress={() => {
                     AsyncStorage.clear();
-                    this.props.dispatch(setLogin(null))
+                    this.props.isLogin(setLogin('false'))
 
                     alert('로그아웃');
                     // this.props.navigation.navigate('Login'); // 작동됨
@@ -34,16 +34,14 @@ class Main extends Component<UserProps> {
 }
 
 // export default Main
-const mapStateToProps = (state) => {
-	console.log(state,'이거메인의mapstateto porps')
+const mapStateToProps = (state:AuthLoding) => {
 	return {
 	  setLogin: state.reducer.setLogin,
 	  };
   };
-//   const mapDispatchToProps = (dispatch, userLogin) => {
-//     console.log(dispatch,'=====', userLogin)
-//       return {
-//           onClick: () => dispatch(setLogin(userLogin))
-//       }
-//   }
-  export default connect(mapStateToProps)(Main);
+  const mapDispatchToProps = (dispatch:Function) => {
+      return {
+          isLogin: (userLogin: SetLogin) => dispatch(setLogin(userLogin))
+      }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(Main);

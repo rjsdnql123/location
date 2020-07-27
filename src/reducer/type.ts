@@ -17,6 +17,8 @@ export interface UserProps {
         name: string;
         params?: string;
     }
+    setLogin: string|null;
+    isLogin: Function;
 }
 
 export interface AppProps {
@@ -30,6 +32,17 @@ export interface AppState {
 }
 
 export interface SetLogin {
-    setLogin: string
+    setLogin: {setLogin:string}
     type: string;
+}
+
+export interface Auth {
+    setLogin: string|null;
+    isLogin: Function;
+}
+
+export interface AuthLoding {
+    reducer: {
+        setLogin: string;
+    }
 }

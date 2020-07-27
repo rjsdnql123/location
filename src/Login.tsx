@@ -1,7 +1,7 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps} from './reducer/type'
+import {User, UserProps, SetLogin, AuthLoding} from './reducer/type'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native';
 import App from '../App'
@@ -35,7 +35,7 @@ class Login extends Component<UserProps,User> {
 			if(res.status === 200) {
 				//성공시 메인 페이지
 				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
-				this.props.dispatch(setLogin('asdfasdf'))
+				this.props.isLogin(setLogin('true'))
 				// this.props.navigation.navigate('AuthLoadingScreen'); // 작동됨
 				return alert('로그인 성공')
 			} else if(res.status === 404){
@@ -43,12 +43,13 @@ class Login extends Component<UserProps,User> {
 			}
 		})
 	} catch (error) {
-		return alert('실패');
 		console.log('error')
+		return alert('실패');
 	}
 	};
 
 	render() {
+		console.log(this.props,'thisporposdia')
 		return (
 			<View>
 				<Email>
@@ -78,11 +79,16 @@ const UserLogin = styled.TouchableOpacity`
 	background-color: blue;
 `;
 // export default Login;
-const mapStateToProps = (state) => {
-	console.log(state,'mapstateto porps')
+const mapStateToProps = (state:AuthLoding) => {
+	console.log(state,'이거처리 porps')
 	return {
 	  setLogin: state.reducer.setLogin,
 	  };
   };
-
-  export default connect(mapStateToProps)(Login);
+  const mapDispatchToProps = (dispatch:Function) => {
+	console.log(dispatch,'=====')
+	  return {
+		isLogin: (userLogin:SetLogin) => dispatch(setLogin(userLogin))
+	  }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(Login);

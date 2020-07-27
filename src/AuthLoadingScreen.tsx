@@ -5,16 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Login';
 import SignUp from './SignUp';
 import Main from './Main';
-import { connect } from 'react-redux';
 import {setLogin} from './action/index'
+import { Auth } from './reducer/type';
 const Stack = createStackNavigator();
-interface AppState {
-  setLogin: {};
-  onClick: Function;
-}
 
-class AuthLoadingScreen extends Component<AppState> {
-  constructor(props: AppState) {
+class AuthLoadingScreen extends Component<Auth> {
+  constructor(props: Auth) {
     super(props);
   }
 
@@ -25,12 +21,12 @@ class AuthLoadingScreen extends Component<AppState> {
       if (value !== null) {
         console.log('토큰있음', value);
         console.log('propssssss',this.props)
-        this.props.onClick('asdf')
+        this.props.isLogin(setLogin('true'))
         return value
       } else {
         console.log('토큰없음', value);
         console.log('propssssss',this.props)
-        console.log(this.props.onClick)
+        this.props.isLogin(setLogin('false'))
         return null
       }
     } catch (error) {
@@ -47,7 +43,7 @@ class AuthLoadingScreen extends Component<AppState> {
     console.log(this.props,'props ahow')
     return (
       <Stack.Navigator>
-      {this.props.setLogin === null? (
+      {this.props.setLogin === 'false'? (
                     <>
                       <Stack.Screen name="Login" component={Login} />
                       <Stack.Screen name="SignUp" component={SignUp} />
