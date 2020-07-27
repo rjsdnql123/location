@@ -4,9 +4,11 @@ import { AsyncStorage } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../containers/Login';
 import SignUp from './SignUp';
+import Loding from './Loding'
 import Main from '../containers/Main';
 import {setLogin} from '../action/index'
 import { Auth } from '../reducer/type';
+import axios from 'axios'
 const Stack = createStackNavigator();
 
 class AuthLoadingScreen extends Component<Auth> {
@@ -15,24 +17,48 @@ class AuthLoadingScreen extends Component<Auth> {
   }
 
   // usertoken을 가져오는 함수
+  //서버로 토큰을 보내 토큰이 유효한지 보고 유효하다면 유지
+  //유효하지 않다면 스토리지를 초기화 해 로그아웃 시키기
   getUserToken = async () => {
-    try {
+    // try {
+    //   const value = await AsyncStorage.getItem('USERTOKEN');
+    //   if (value !== null) {
+    //     console.log('토큰있음', value);
+    //     console.log('propssssss',this.props)
+    //     this.props.isLogin(setLogin('true'))
+    //     return value
+    //   } else {
+    //     console.log('토큰없음', value);
+    //     console.log('propssssss',this.props)
+    //     this.props.isLogin(setLogin('false'))
+    //     return null
+    //   }
+    // } catch (error) {
+    //   console.log('getUserTokenError', error);
+    // }
+    try{
+      console.log('지나가냐?')
       const value = await AsyncStorage.getItem('USERTOKEN');
-      if (value !== null) {
-        console.log('토큰있음', value);
-        console.log('propssssss',this.props)
-        this.props.isLogin(setLogin('true'))
-        return value
-      } else {
-        console.log('토큰없음', value);
-        console.log('propssssss',this.props)
-        this.props.isLogin(setLogin('false'))
-        return null
-      }
-    } catch (error) {
-      console.log('getUserTokenError', error);
+      console.log(value)
+      axios.get('http://localhost:8080/user/auth', {
+        headers : {
+          authorization: value
+        }
+      }).then((result) => {
+        console.log(result.status)
+        if(result.status === 200) {
+          console.log('토큰 유효 메인페이지로 이동')
+          this.props.isLogin(setLogin('true'))
+        } else {
+          console.log('토큰 유효하지 않음 토큰 삭제후 로그인페이지')
+          AsyncStorage.clear();
+          this.props.isLogin(setLogin('false'))
+        }
+      })
+    } catch(error) {
+      console.log(error,'error')
     }
-  };
+    };
 
   componentDidMount() {
     this.getUserToken();
@@ -48,9 +74,10 @@ class AuthLoadingScreen extends Component<Auth> {
                       <Stack.Screen name="Login" component={Login} />
                       <Stack.Screen name="SignUp" component={SignUp} />
                     </>
-                  ) : (
+                  ) :this.props.setLogin ==='true'? (
         		      <Stack.Screen name="Main" component={Main} />
-        		  )}
+              ):(<Stack.Screen name="Loding" component={Loding} />)
+            }
       </Stack.Navigator>
     );
   }

@@ -3,7 +3,7 @@ import { SetLogin } from './type';
 
 
 const initialState = {
-    setLogin: 'false',
+    setLogin: 'null',
   };
 
 const Reducer = (state = initialState, action:SetLogin) => {
