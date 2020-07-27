@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from './Login';
+import Login from '../containers/Login';
 import SignUp from './SignUp';
-import Main from './Main';
-import {setLogin} from './action/index'
-import { Auth } from './reducer/type';
+import Main from '../containers/Main';
+import {setLogin} from '../action/index'
+import { Auth } from '../reducer/type';
 const Stack = createStackNavigator();
 
 class AuthLoadingScreen extends Component<Auth> {
@@ -55,14 +55,5 @@ class AuthLoadingScreen extends Component<Auth> {
     );
   }
 }
-
-// const mapStateToProps = (state) => {
-// 	console.log(state,'mapstateto porps')
-// 	return {
-// 	  setLogin: state.reducer.setLogin,
-// 	  };
-//   };
-
-//   export default connect(mapStateToProps,null)(AuthLoadingScreen);
 
 export default AuthLoadingScreen

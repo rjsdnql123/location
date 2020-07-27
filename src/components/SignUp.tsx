@@ -1,7 +1,7 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps} from './reducer/type'
+import {User, UserProps} from '../reducer/type'
 import * as Location from 'expo-location'
 const axios = require('axios');
 

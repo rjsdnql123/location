@@ -1,12 +1,12 @@
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import {User, UserProps, SetLogin, AuthLoding} from './reducer/type'
+import {User, UserProps, SetLogin, AuthLoding} from '../reducer/type'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native';
-import App from '../App'
+import App from '../../App'
 import { connect } from 'react-redux';
-import { setLogin } from './action';
+import { setLogin } from '../action';
 //const axios = require('axios');
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
@@ -78,17 +78,5 @@ const Email = styled.View`
 const UserLogin = styled.TouchableOpacity`
 	background-color: blue;
 `;
-// export default Login;
-const mapStateToProps = (state:AuthLoding) => {
-	console.log(state,'이거처리 porps')
-	return {
-	  setLogin: state.reducer.setLogin,
-	  };
-  };
-  const mapDispatchToProps = (dispatch:Function) => {
-	console.log(dispatch,'=====')
-	  return {
-		isLogin: (userLogin:SetLogin) => dispatch(setLogin(userLogin))
-	  }
-  }
-  export default connect(mapStateToProps,mapDispatchToProps)(Login);
+
+  export default Login

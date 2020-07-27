@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from './src/Login';
-import SignUp from './src/SignUp';
-import AuthLoadingScreen from './src/AuthLoadingScreen'
-import Main from './src/Main'
+import Login from './src/components/Login';
+import SignUp from './src/components/SignUp';
+import AuthLoadingScreen from './src/components/AuthLoadingScreen'
+import Main from './src/components/Main'
 import { AsyncStorage } from 'react-native';
 import {AppProps, AppState} from './src/reducer/type'
 import { Provider, connect } from 'react-redux';
