@@ -7,6 +7,7 @@ const axios = require('axios');
 import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { setLogin } from '../action';
+import PostDetail from './PostDetail';
 
 //해당 유저의 지역에 걸맞는 포스트 내용들을 불러와준다.
 
@@ -15,22 +16,28 @@ class Main extends Component<MainProps> {
         super(props)
     }
 
-    getPost = () => {
-        axios.get('http://localhost:8080/post/allpost', {
-        }).then(({data}:MainPostData) => {
-            console.log(data,'data')
-            this.props.postSet(data)
-        })
-    }
-
     componentDidMount() {
-        this.getPost()
+        this.props.postSet()
     }
+    
     render() {
         console.log(this.props,'mainProps')
         if(this.props.post[0] === undefined) {
             return(
-                <View></View>
+                <View>
+                    <TouchableOpacity onPress={() => {
+                    return this.props.navigation.navigate('Post')
+                }}><Text>POST쓰기</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                    AsyncStorage.clear();
+                    this.props.isLogin('false')
+    
+                    alert('로그아웃');
+                    // this.props.navigation.navigate('Login'); // 작동됨
+                }}>
+                    <Text>main</Text>
+                </TouchableOpacity> 
+                </View>
             )
         }
         return(
@@ -46,12 +53,21 @@ class Main extends Component<MainProps> {
                 </TouchableOpacity> 
                 {this.props.post.map((a, index) => (
                    <Post key={index}>
+                       <TouchableOpacity onPress={() => this.props.navigation.navigate('PostDetail', {
+                           postIndex: index,
+                           postId: a.post_Id 
+                       })}>
+
                     <PostNickname>nickname: {a.user.nickname}</PostNickname>
                     <Title>title: {a.title}</Title>
                     <Contents>Contents: {a.contents}</Contents>
                     <Comments>댓글 몇개?{a.comments.length}</Comments>
+                       </TouchableOpacity>
                    </Post>
                 ))}
+                <TouchableOpacity onPress={() => {
+                    return this.props.navigation.navigate('Post')
+                }}><Text>POST쓰기</Text></TouchableOpacity>
             </View>
         )
     }
