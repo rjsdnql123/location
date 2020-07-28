@@ -4,9 +4,14 @@ import styled from 'styled-components/native';
 import {User, LoginProps} from '../reducer/type'
 import * as Location from 'expo-location'
 const axios = require('axios');
-require('dotenv').config();
+// require('dotenv').config();
+// console.log('현재위치 lng', process.env.MAPS_API_KEY);
 
-//이메일, 비밀번호, 나이, 지역
+// import dotenv from 'dotenv'
+
+// dotenv.config()
+
+//이메일, 비밀번호, 나이, 지역 z
 
 class SignUp extends Component<LoginProps, User> {
     constructor(props:LoginProps) {
@@ -35,10 +40,17 @@ class SignUp extends Component<LoginProps, User> {
 			nickname: this.state.nickname,
 			age: this.state.age,
 			location: this.state.location
+		}).then(() => {
+			alert('회원가입 완료');
+			this.props.navigation.navigate('Login')
+		}).catch((err: string) => {
+			this.setState({
+				email: '',
+				password: '',
+			  });
+			alert('이메일이 중복 되었습니다');
+			console.log(err,'err')
 		})
-		alert('회원가입 완료');
-		//this.props.navigation 으로 login 화면으로 전환
-		this.props.navigation.navigate('Login')
 	};
 
 	getLocation = async () => {
@@ -49,11 +61,11 @@ class SignUp extends Component<LoginProps, User> {
 			lng: location.coords.longitude,
 		  });
 		  console.log('현재위치 lat', this.state.lat);
-		  console.log('현재위치 lng', process);
+		  console.log('현재위치 lng', process.env.MAPS_API_KEY);
 //역 지오코딩 이용해서 지역 찾기
 		  axios
           .get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=${process.env.MAPS_API_KEY}`,
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=AIzaSyCWwgjVExsPpxwsgKDRoVnlpEXtvGeBs3w`,
           ) // 위도, 경도 google maps api로 보냄
           .then((res:any) => {
 			console.log(res,'이뭐야')
