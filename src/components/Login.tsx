@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import {User, LoginProps} from '../reducer/type'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native';
-import App from '../../App'
+import App from '../App'
 import { connect } from 'react-redux';
 import { setLogin } from '../action';
 //const axios = require('axios');
@@ -36,7 +36,6 @@ class Login extends Component<LoginProps,User> {
 				//성공시 메인 페이지
 				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
 				this.props.isLogin('true')
-				// this.props.navigation.navigate('AuthLoadingScreen'); // 작동됨
 				return alert('로그인 성공')
 			} else if(res.status === 404){
 				console.log('ddnc')

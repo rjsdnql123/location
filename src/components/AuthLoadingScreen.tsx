@@ -9,6 +9,8 @@ import Main from '../containers/Main';
 import {setLogin} from '../action/index'
 import { Auth } from '../reducer/type';
 import axios from 'axios'
+import Post from '../containers/Post';
+import PostDetail from '../containers/PostDetail';
 const Stack = createStackNavigator();
 
 class AuthLoadingScreen extends Component<Auth> {
@@ -81,7 +83,11 @@ class AuthLoadingScreen extends Component<Auth> {
                       <Stack.Screen name="SignUp" component={SignUp} />
                     </>
                   ) :this.props.setLogin ==='true'? (
+                    <>
         		      <Stack.Screen name="Main" component={Main} />
+                  <Stack.Screen name="Post" component={Post} />
+                  <Stack.Screen name="PostDetail" component={PostDetail} />
+                  </>
               ):(<Stack.Screen name="Loding" component={Loding} />)
             }
       </Stack.Navigator>

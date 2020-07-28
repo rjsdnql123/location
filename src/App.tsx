@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from './src/components/Login';
-import SignUp from './src/components/SignUp';
-import AuthLoadingScreen from './src/components/AuthLoadingScreen'
-import Main from './src/components/Main'
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import AuthLoadingScreen from './components/AuthLoadingScreen'
+import Main from './components/Main'
 import { AsyncStorage } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { createStore, compose } from 'redux';
-import rootReducer from './src/reducer';
-import AuthLoding from './src/containers/AuthLoding';
+import rootReducer from './reducer';
+import AuthLoding from './containers/AuthLoding';
+
 // import store from './src/reducer/index'
 const Stack = createStackNavigator();
 
