@@ -10,7 +10,11 @@ class PostDetail extends Component {
             comments:''
         }
     }
+    componentDidMount() {
+        console.log('재랜더링')
+    }
     render() {
+        
       console.log(this.props,'실행')
       return (
         <View>
@@ -21,7 +25,10 @@ class PostDetail extends Component {
             <TextInput value={this.state.comments} onChangeText={(comments) => this.setState({ comments })}>
             </TextInput>
             </Text>
-            <TouchableOpacity onPress={() => this.props.writingComment(this.props.userId, this.props.route.params.postId, this.state.comments)}>
+            {this.props.post[this.props.route.params.postIndex].comments.map((x,index) => 
+                <Text key={index}>{x.Contents}</Text>
+            )}
+            <TouchableOpacity onPress={() => (this.props.writingComment(this.props.userId, this.props.route.params.postId, this.state.comments),this.setState({comments:''}),this.props.postSet())}>
                 <Text>버튼</Text>
             </TouchableOpacity>
         </View>

@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import { HeaderTitle } from "@react-navigation/stack";
 import PostDetail from "../components/PostDetail";
+import { setPost } from "../action";
+import { MainPostData } from "../reducer/type";
 
 const mapStateToProps = (state) => {
     console.log(state,'poost')
@@ -19,6 +21,10 @@ const mapDispachToProps = (dispatch) => {
             Contents: Contents
         }).then((result) => {
             console.log(result,'mapdispatch')
+        }),
+        postSet: () => axios.get('http://localhost:8080/post/allpost', {
+        }).then(({data}:MainPostData) => {
+            dispatch(setPost(data))
         })
     }
 }
