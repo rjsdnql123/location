@@ -21,11 +21,12 @@ const mapDispachToProps = (dispatch) => {
             Contents: Contents
         }).then((result) => {
             console.log(result,'mapdispatch')
-        }),
-        postSet: () => axios.get('http://localhost:8080/post/allpost', {
+            axios.get('http://localhost:8080/post/allpost', {
         }).then(({data}:MainPostData) => {
             dispatch(setPost(data))
         })
+        }),
+        
     }
 }
 

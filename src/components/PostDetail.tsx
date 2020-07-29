@@ -28,7 +28,7 @@ class PostDetail extends Component {
             {this.props.post[this.props.route.params.postIndex].comments.map((x,index) => 
                 <Text key={index}>{x.Contents}</Text>
             )}
-            <TouchableOpacity onPress={() => (this.props.writingComment(this.props.userId, this.props.route.params.postId, this.state.comments),this.setState({comments:''}),this.props.postSet())}>
+            <TouchableOpacity onPress={() => (this.props.writingComment(this.props.userId, this.props.route.params.postId, this.state.comments),this.setState({comments:''}))}>
                 <Text>버튼</Text>
             </TouchableOpacity>
         </View>
