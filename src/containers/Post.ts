@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import axios from 'axios';
 import Post from "../components/Post";
+import { MainPostData } from "../reducer/type";
+import { setPost } from "../action";
 
 
 const mapStateToProps = (state) => {
@@ -18,7 +20,11 @@ const mapDispatchToProps = (dispatch) => {
             Contents: contents
         }).then((result) => {
             console.log(result, 'Post result')
-        })
+             axios.get('http://localhost:8080/post/allpost', {
+            }).then(({data}:MainPostData) => {
+                dispatch(setPost(data))
+            })
+        }),
     }
 }
 
