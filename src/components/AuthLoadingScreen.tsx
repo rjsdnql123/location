@@ -48,7 +48,7 @@ class AuthLoadingScreen extends Component<Auth> {
           authorization: value
         }
       }).then(({ status, data }) => {
-        console.log(status)
+        console.log(data,'인포베이션')
         if(status === 200) {
           //유저의 정보를 id location 등을 업데이트 해서 redux에 저장한다?
           console.log('토큰 유효 메인페이지로 이동')
@@ -56,6 +56,7 @@ class AuthLoadingScreen extends Component<Auth> {
           this.props.isLogin('true')
           this.props.information({
             user_Id: data.user_Id,
+            location: data.location
           })
         } else {
           console.log('토큰 유효하지 않음 토큰 삭제후 로그인페이지')

@@ -5,7 +5,7 @@ import Main from "../components/Main";
 import axios from 'axios';
 
 const mapStateToProps = (state:ReduxState) => {
-    console.log(state)
+    console.log(state,'state')
 	return {
 	  post: state.reducer.post,
 	  };
