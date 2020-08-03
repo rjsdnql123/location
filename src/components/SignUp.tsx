@@ -3,13 +3,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import {User, LoginProps} from '../reducer/type'
 import * as Location from 'expo-location'
+import * as config from '../../env';
+
 const axios = require('axios');
-// require('dotenv').config();
-// console.log('현재위치 lng', process.env.MAPS_API_KEY);
 
-// import dotenv from 'dotenv'
-
-// dotenv.config()
 
 //이메일, 비밀번호, 나이, 지역 z
 
@@ -34,7 +31,7 @@ class SignUp extends Component<LoginProps, User> {
 			return alert('이메일 에러');
         }
 		//통과되면 서버에 요청을 보내 회원가입 요청 날리기
-		await axios.post('http://localhost:8080/user/signup', {
+		await axios.post(`http://${config.SERVER_PORT}/user/signup`, {
 			email: this.state.email,
 			password: this.state.password,
 			nickname: this.state.nickname,
@@ -61,11 +58,11 @@ class SignUp extends Component<LoginProps, User> {
 			lng: location.coords.longitude,
 		  });
 		  console.log('현재위치 lat', this.state.lat);
-		  console.log('현재위치 lng', process.env.MAPS_API_KEY);
+		  console.log('현재위치 lng', config.MAPS_API_KEY);
 //역 지오코딩 이용해서 지역 찾기
 		  axios
           .get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=AIzaSyCWwgjVExsPpxwsgKDRoVnlpEXtvGeBs3w`,
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=${config.MAPS_API_KEY}`,
           ) // 위도, 경도 google maps api로 보냄
           .then((res:any) => {
 			console.log(res,'이뭐야')
