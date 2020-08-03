@@ -1,5 +1,5 @@
-import { ReduxState } from "../reducer/type";
-import { setLogin } from "../action";
+import { ReduxState, Information } from "../reducer/type";
+import { setLogin, setInformation } from "../action";
 import { connect } from "react-redux";
 import Login from "../components/Login";
 
@@ -12,7 +12,9 @@ const mapStateToProps = (state:ReduxState) => {
   const mapDispatchToProps = (dispatch:Function) => {
 	console.log(dispatch,'=====')
 	  return {
-		isLogin: (userLogin:string) => dispatch(setLogin(userLogin))
+		isLogin: (userLogin:string) => dispatch(setLogin(userLogin)),
+		information: (userInformation:Information) => dispatch(setInformation(userInformation))
+
 	  }
   }
   export default connect(mapStateToProps,mapDispatchToProps)(Login);

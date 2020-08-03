@@ -7,7 +7,8 @@ import { AsyncStorage } from 'react-native';
 import App from '../App'
 import { connect } from 'react-redux';
 import { setLogin } from '../action';
-//const axios = require('axios');
+import * as config from '../../env';
+import AuthLoding from '../containers/AuthLoding'
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
 class Login extends Component<LoginProps,User> {
@@ -27,14 +28,16 @@ class Login extends Component<LoginProps,User> {
 		if (!checkEmail) {
 			return alert('이메일 에러');
 		}
-		axios.post('http://localhost:8080/user/signin', {
+		axios.post(`http://${config.SERVER_PORT}/user/signin`, {
 			email: this.state.email,
 			password: this.state.password,
 		}).then(async res => {
 			console.log(res)
 			if(res.status === 200) {
 				//성공시 메인 페이지
+				console.log(res,'resresres')
 				await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
+				this.props.information(res.data.userId)
 				this.props.isLogin('true')
 				return alert('로그인 성공')
 			} else if(res.status === 404){
@@ -48,6 +51,7 @@ class Login extends Component<LoginProps,User> {
 	};
 
 	render() {
+		AuthLoding
 		console.log(this.props,'thisporposdia')
 		return (
 			<View>
@@ -57,7 +61,7 @@ class Login extends Component<LoginProps,User> {
 				</Email>
 				<Email>
 					<Text>password</Text>
-					<TextInput value={this.state.password} onChangeText={(password) => this.setState({ password })} />
+					<TextInput secureTextEntry value={this.state.password} onChangeText={(password) => this.setState({ password })} />
 				</Email>
 				<UserLogin onPress={() => this.CheckEmail(this.state.email)}>
 					<Text>Pick a photo</Text>
