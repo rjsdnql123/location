@@ -4,11 +4,9 @@ import reducer from './reducer';
 // import Myprofile from './Myprofile'
 
 const rootReducer = combineReducers({
-  reducer,
-  // Myprofile
+	reducer,
+	// Myprofile
 });
-
-
 
 export default rootReducer;
 
