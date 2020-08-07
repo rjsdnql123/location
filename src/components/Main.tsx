@@ -23,7 +23,7 @@ import PostDetail from './PostDetail';
 //새로고침 할수 있는 함수
 
 function Main(props: MainProps) {
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise((resolve) => {
 			setTimeout(resolve, timeout);
 		});
@@ -122,13 +122,21 @@ const Post = styled.View`
 	border-top-color: palevioletred;
 `;
 
-const Title = styled.Text``;
+const Title = styled.Text`
+	margin: 20%;
+`;
 
-const Contents = styled.Text``;
+const Contents = styled.Text`
+	font-size: 30px;
+`;
 
-const PostNickname = styled.Text``;
+const PostNickname = styled.Text`
+	font-weight: 900;
+`;
 
-const Comments = styled.Text``;
+const Comments = styled.Text`
+	color: palevioletred;
+`;
 
 // import { TextInput, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 // import React, { Component } from 'react';
