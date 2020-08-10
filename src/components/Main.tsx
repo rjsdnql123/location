@@ -83,8 +83,8 @@ function Main(props: MainProps) {
 					>
 						<PostNickname>nickname: {a.user.nickname}</PostNickname>
 						<Title>title: {a.title}</Title>
-						<Contents>Contents: {a.contents}</Contents>
-						<Comments>댓글 몇개?{a.comments.length}</Comments>
+						<Contents>Contents: {a.contents}...</Contents>
+						<Comments>댓글: {a.comments.length}</Comments>
 					</TouchableOpacity>
 				</Post>
 			))}
@@ -123,12 +123,11 @@ const Post = styled.View`
 `;
 
 const Title = styled.Text`
-	margin: 20%;
-`;
-
-const Contents = styled.Text`
+	font-weight: 900;
 	font-size: 30px;
 `;
+
+const Contents = styled.Text``;
 
 const PostNickname = styled.Text`
 	font-weight: 900;

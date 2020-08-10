@@ -12,8 +12,10 @@ import axios from 'axios';
 import Post from '../containers/Post';
 import PostDetail from '../containers/PostDetail';
 import * as config from '../../env';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 class AuthLoadingScreen extends Component<Auth> {
 	constructor(props: Auth) {
@@ -53,9 +55,9 @@ class AuthLoadingScreen extends Component<Auth> {
 					</>
 				) : this.props.setLogin === 'true' ? (
 					<>
-						<Stack.Screen name="Main" component={Main} initialParams={{ userId: this.props.userId }} />
-						<Stack.Screen name="Post" component={Post} />
-						<Stack.Screen name="PostDetail" component={PostDetail} />
+						<Tab.Screen name="Main" component={Main} initialParams={{ userId: this.props.userId }} />
+						<Tab.Screen name="Post" component={Post} />
+						<Tab.Screen name="PostDetail" component={PostDetail} />
 					</>
 				) : (
 					<Stack.Screen name="Loding" component={Loding} />
