@@ -15,7 +15,18 @@ import * as config from '../../env';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator();
+const Home = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function HomePage(props: any) {
+	console.log(props, '이거여기프롯');
+	return (
+		<Home.Navigator>
+			<Home.Screen name="Main" component={Main} initialParams={{ userId: props.route.params.userId }} />
+			<Home.Screen name="PostDetail" component={PostDetail} />
+		</Home.Navigator>
+	);
+}
 
 class AuthLoadingScreen extends Component<Auth> {
 	constructor(props: Auth) {
@@ -46,22 +57,19 @@ class AuthLoadingScreen extends Component<Auth> {
 		if (this.props.userId) {
 			this.props.information({ user_Id: this.props.userId });
 		}
-		return (
+		return this.props.setLogin === 'false' ? (
 			<Stack.Navigator>
-				{this.props.setLogin === 'false' ? (
-					<>
-						<Stack.Screen name="Login" component={Login} />
-						<Stack.Screen name="SignUp" component={SignUp} />
-					</>
-				) : this.props.setLogin === 'true' ? (
-					<>
-						<Tab.Screen name="Main" component={Main} initialParams={{ userId: this.props.userId }} />
-						<Tab.Screen name="Post" component={Post} />
-						<Tab.Screen name="PostDetail" component={PostDetail} />
-					</>
-				) : (
-					<Stack.Screen name="Loding" component={Loding} />
-				)}
+				<Stack.Screen name="Login" component={Login} />
+				<Stack.Screen name="SignUp" component={SignUp} />
+			</Stack.Navigator>
+		) : this.props.setLogin === 'true' ? (
+			<Tab.Navigator>
+				<Tab.Screen name="HomePage" component={HomePage} initialParams={{ userId: this.props.userId }} />
+				<Tab.Screen name="Post" component={Post} />
+			</Tab.Navigator>
+		) : (
+			<Stack.Navigator>
+				<Stack.Screen name="Loding" component={Loding} />
 			</Stack.Navigator>
 		);
 	}

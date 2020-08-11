@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { TextInput, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 import { PostPropst, PostState } from '../reducer/type';
 
@@ -17,31 +17,33 @@ class Post extends Component<PostPropst, PostState> {
 		console.log(this.props, 'props post');
 		console.log(this.state, 'state');
 		return (
-			<View>
-				<Text>여기다 포스트 쓸꺼야</Text>
-				<Text>
-					여기다 타이틀 쓰기
-					<TextInput value={this.state.title} onChangeText={(title) => this.setState({ title })} />
-				</Text>
-				<Text>
-					여기다 내용 쓰기
-					<TextInput value={this.state.contents} onChangeText={(contents) => this.setState({ contents })} />
-				</Text>
+			<SafeAreaView>
+				<View>
+					<Text>여기다 포스트 쓸꺼야</Text>
+					<Text>
+						여기다 타이틀 쓰기
+						<TextInput value={this.state.title} onChangeText={(title) => this.setState({ title })} />
+					</Text>
+					<Text>
+						여기다 내용 쓰기
+						<TextInput value={this.state.contents} onChangeText={(contents) => this.setState({ contents })} />
+					</Text>
 
-				<UserLogin
-					onPress={() => {
-						return (
-							this.props.navigation.navigate('Main'),
-							this.props.writing(this.props.userId, this.state.title, this.state.contents)
-						);
-					}}
-				>
-					{/* <UserLogin onPress={() => this.props.writing(this.props.userId,this.state.title,this.state.contents)}> */}
+					<UserLogin
+						onPress={() => {
+							return (
+								this.props.navigation.navigate('Main'),
+								this.props.writing(this.props.userId, this.state.title, this.state.contents)
+							);
+						}}
+					>
+						{/* <UserLogin onPress={() => this.props.writing(this.props.userId,this.state.title,this.state.contents)}> */}
 
-					<Text>이거클릭</Text>
-					{/* </UserLogin> */}
-				</UserLogin>
-			</View>
+						<Text>이거클릭</Text>
+						{/* </UserLogin> */}
+					</UserLogin>
+				</View>
+			</SafeAreaView>
 		);
 	}
 }

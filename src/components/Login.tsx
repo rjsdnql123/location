@@ -115,15 +115,16 @@ const LoginButton = styled.TouchableOpacity`
 	background-color: palevioletred;
 	width: 70%
 	height: 15%
-	justifyContent: center
     alignItems: center
 	margin: 15%
+	align-items: center;
+	justify-content: center;
 `;
 
 const LoginText = styled.Text`
 	font-size: 30px;
 	font-weight: 900;
-	justifycontent: center;
+
 	color: white;
 `;
 
@@ -133,8 +134,8 @@ const SignUpText = styled.Text`
 const SignUpView = styled.View`
 	display: flex;
 	flex-direction: row;
-	justifyContent: center
-    alignItems: center
+	align-items: center;
+	justify-content: center;
 `;
-
+//디자인문제
 export default Login;
