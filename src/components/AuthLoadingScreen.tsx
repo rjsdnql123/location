@@ -64,8 +64,8 @@ class AuthLoadingScreen extends Component<Auth> {
 			</Stack.Navigator>
 		) : this.props.setLogin === 'true' ? (
 			<Tab.Navigator>
-				<Tab.Screen name="HomePage" component={HomePage} initialParams={{ userId: this.props.userId }} />
-				<Tab.Screen name="Post" component={Post} />
+				<Tab.Screen name="홈" component={HomePage} initialParams={{ userId: this.props.userId }} />
+				<Tab.Screen name="글쓰기" component={Post} />
 			</Tab.Navigator>
 		) : (
 			<Stack.Navigator>
