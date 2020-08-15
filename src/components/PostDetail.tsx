@@ -7,12 +7,12 @@ import { PostDetailProps, PostDetailState } from '../reducer/type';
 function PostName({ post, route }) {
 	console.log(post, '우우우ㅜㅇ');
 	return (
-		<View>
+		<Post>
 			<Title> title {post[route.params.postIndex].title}</Title>
 			<PostNickname>닉네임 대전 {post[route.params.postIndex].user.nickname}</PostNickname>
 			<Time> 작성시간 {post[route.params.postIndex].updatedAt}</Time>
 			<Title>글 내용 {post[route.params.postIndex].contents}</Title>
-		</View>
+		</Post>
 	);
 }
 const PostNames = React.memo(PostName);
@@ -31,25 +31,26 @@ const Commentsss = React.memo(Commentss);
 
 function PostDetail({ post, route, writingComment, userId }) {
 	const [writeComments, setComments] = useState('');
-	// console.log(post, route, writingComment, userId);
 	console.log(writeComments);
 
 	return (
 		<PostScreen>
-			<Post>
-				<PostNames post={post} route={route}></PostNames>
-				{/* <Title> title {post[route.params.postIndex].title}</Title>
-				<PostNickname>닉네임 대전 {post[route.params.postIndex].user.nickname}</PostNickname>
-				<Time> 작성시간 {post[route.params.postIndex].updatedAt}</Time>
-				<Title>글 내용 {post[route.params.postIndex].contents}</Title> */}
-				<TextIN>
-					<TextInput value={writeComments} onChangeText={(comments) => setComments(comments)}></TextInput>
-				</TextIN>
-			</Post>
-			<TouchableOpacity onPress={() => (writingComment(userId, route.params.postId, writeComments), setComments(''))}>
-				<Text>버튼</Text>
-			</TouchableOpacity>
-			<Commentsss post={post} route={route}></Commentsss>
+			<PostNames post={post} route={route}></PostNames>
+			<Comment_Box>
+				<Write>
+					<TextIN>
+						<Comments_Write value={writeComments} onChangeText={(comments) => setComments(comments)}></Comments_Write>
+					</TextIN>
+					<ZZZZZ>
+						<TouchableOpacity
+							onPress={() => (writingComment(userId, route.params.postId, writeComments), setComments(''))}
+						>
+							<Text>댓글 등록</Text>
+						</TouchableOpacity>
+					</ZZZZZ>
+				</Write>
+				<Commentsss post={post} route={route}></Commentsss>
+			</Comment_Box>
 		</PostScreen>
 	);
 }
@@ -59,10 +60,10 @@ const PostScreen = styled.View`
 	margin: 5px;
 `;
 const Post = styled.View`
-	border-bottom-width: 1px;
-	border-bottom-color: palevioletred;
-	border-top-width: 1px;
-	border-top-color: palevioletred;
+	border: 1px;
+	border-color: palevioletred;
+	margin-bottom: 5px;
+	padding: 5px;
 `;
 const Title = styled.Text`
 	font-weight: 900;
@@ -74,11 +75,27 @@ const Time = styled.Text`
 const PostNickname = styled.Text`
 	font-weight: 900;
 `;
-const Comments = styled.Text`
-	color: palevioletred;
+const Comments_Write = styled.TextInput`
+	height: 30%;
+	border: 1px;
+	border-color: blue;
 `;
-const Contents = styled.Text``;
+const Write = styled.View`
+	display: flex;
+	flex-direction: row;
 
-const TextIN = styled.View`
-	background-color: blue;
+	border: 1px;
+	border-color: black;
+`;
+const Comment_Box = styled.View`
+	border: 1px;
+	border-color: palevioletred;
+	margin-bottom: 5px;
+	padding: 5px;
+`;
+
+const TextIN = styled.View``;
+
+const ZZZZZ = styled.View`
+	float: light;
 `;
