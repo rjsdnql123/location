@@ -14,9 +14,16 @@ export interface Posts {
 	title: string;
 	contents: string;
 	createAt: string;
-	updateAt: string;
+	updatedAt: string;
 	user: User;
-	comments: [];
+	comments: Comments[];
+}
+export interface Comments {
+	User_Id: number;
+	Contents: string;
+	createdAt: string;
+	updatedAt: string;
+	user: User;
 }
 
 export interface Navigation {
@@ -24,9 +31,9 @@ export interface Navigation {
 }
 
 export interface Route {
-	key: string;
-	name: string;
-	params: { userId?: null | number };
+	key?: string;
+	name?: string;
+	params: { userId: null & number; postIndex: number; postId: number };
 }
 
 //메인페이지 props로 활용
@@ -98,11 +105,7 @@ export interface PostState {
 //postdetail props
 export interface PostDetailProps {
 	navigation: Navigation;
-	route: {
-		key: string;
-		name: string;
-		params: { postId?: number; postIndex: number };
-	};
+	route: Route;
 	post: Posts[];
 	userId: number;
 	writingComment: Function;
@@ -110,4 +113,10 @@ export interface PostDetailProps {
 // detail state
 export interface PostDetailState {
 	comments: string;
+}
+
+//detail Postcontent
+export interface PostContent {
+	route: Route;
+	post: Posts[];
 }

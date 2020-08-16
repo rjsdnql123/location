@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import { PostDetailProps, PostDetailState } from '../reducer/type';
-
+import { PostDetailProps, PostContent } from '../reducer/type';
 //해당 게시글에 상제 정보 타이틀과 댓글목록
-function PostName({ post, route }) {
+function PostName({ post, route }: PostContent) {
 	console.log(post, '우우우ㅜㅇ');
 	return (
 		<Post>
@@ -17,19 +16,24 @@ function PostName({ post, route }) {
 }
 const PostNames = React.memo(PostName);
 
-function Commentss({ post, route }) {
+function Commentss({ post, route }: PostContent) {
 	console.log(post, route);
 	return (
 		<View>
 			{post[route.params.postIndex].comments.map((comments: any, index) => (
-				<Text key={index}>{comments.Contents}</Text>
+				<Comments_Route key={index}>
+					<Text>
+						닉네임{comments.user.nickname} 작성시간 {comments.createdAt}
+					</Text>
+					<Text>내용: {comments.Contents}</Text>
+				</Comments_Route>
 			))}
 		</View>
 	);
 }
 const Commentsss = React.memo(Commentss);
 
-function PostDetail({ post, route, writingComment, userId }) {
+function PostDetail({ post, route, writingComment, userId }: PostDetailProps) {
 	const [writeComments, setComments] = useState('');
 	console.log(writeComments);
 
@@ -38,25 +42,24 @@ function PostDetail({ post, route, writingComment, userId }) {
 			<PostNames post={post} route={route}></PostNames>
 			<Comment_Box>
 				<Write>
-					<TextIN>
-						<Comments_Write value={writeComments} onChangeText={(comments) => setComments(comments)}></Comments_Write>
-					</TextIN>
-					<ZZZZZ>
-						<TouchableOpacity
-							onPress={() => (writingComment(userId, route.params.postId, writeComments), setComments(''))}
-						>
-							<Text>댓글 등록</Text>
-						</TouchableOpacity>
-					</ZZZZZ>
+					<Comments_Write
+						multiline
+						value={writeComments}
+						onChangeText={(comments: string) => setComments(comments)}
+					></Comments_Write>
+					<TextButtom onPress={() => (writingComment(userId, route.params.postId, writeComments), setComments(''))}>
+						<Text>등록</Text>
+					</TextButtom>
 				</Write>
 				<Commentsss post={post} route={route}></Commentsss>
 			</Comment_Box>
 		</PostScreen>
 	);
 }
+//인풋 텍스트 수정 후, 버튼 가운데로 옮기고, 댓글 수정하기
 
 export default PostDetail;
-const PostScreen = styled.View`
+const PostScreen = styled.ScrollView`
 	margin: 5px;
 `;
 const Post = styled.View`
@@ -76,14 +79,12 @@ const PostNickname = styled.Text`
 	font-weight: 900;
 `;
 const Comments_Write = styled.TextInput`
-	height: 30%;
-	border: 1px;
-	border-color: blue;
+	width: 85%;
 `;
 const Write = styled.View`
 	display: flex;
 	flex-direction: row;
-
+	height : 40%
 	border: 1px;
 	border-color: black;
 `;
@@ -92,10 +93,19 @@ const Comment_Box = styled.View`
 	border-color: palevioletred;
 	margin-bottom: 5px;
 	padding: 5px;
+	width: 100%;
 `;
 
-const TextIN = styled.View``;
+const Comments_Route = styled.View`
+padding:5px
+	border: 1px
+	background-color: #E2E2E2
+	;
+`;
 
-const ZZZZZ = styled.View`
-	float: light;
+const TextButtom = styled.TouchableOpacity`
+	justify-content: center;
+	background-color: #e2e2e2;
+	align-items: center;
+	width: 15%;
 `;
