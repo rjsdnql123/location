@@ -22,9 +22,18 @@ function HomePage(props: any) {
 	console.log(props, '이거여기프롯');
 	return (
 		<Home.Navigator>
-			<Home.Screen name="Main" component={Main} initialParams={{ userId: props.route.params.userId }} />
+			<Home.Screen name="홈" component={Main} initialParams={{ userId: props.route.params.userId }} />
 			<Home.Screen name="PostDetail" component={PostDetail} />
 		</Home.Navigator>
+	);
+}
+
+function PostWirting(props: any) {
+	console.log(props, '이거여기프롯');
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name="글쓰기" component={Post} />
+		</Stack.Navigator>
 	);
 }
 
@@ -65,7 +74,7 @@ class AuthLoadingScreen extends Component<Auth> {
 		) : this.props.setLogin === 'true' ? (
 			<Tab.Navigator>
 				<Tab.Screen name="홈" component={HomePage} initialParams={{ userId: this.props.userId }} />
-				<Tab.Screen name="글쓰기" component={Post} />
+				<Tab.Screen name="글쓰기" component={PostWirting} />
 			</Tab.Navigator>
 		) : (
 			<Stack.Navigator>
