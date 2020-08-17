@@ -5,5 +5,6 @@
 /src/env.ts
 
 export const MAPS_API_KEY = 'YOU_GOOGLEMAPS_API_KEY';
+
 export const SERVER_PORT = 'YOU_LOCALHOST_IP:8080';
 
