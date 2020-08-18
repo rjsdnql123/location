@@ -84,7 +84,7 @@ const Comments_Write = styled.TextInput`
 const Write = styled.View`
 	display: flex;
 	flex-direction: row;
-	height : 40%
+	height : 150px
 	border: 1px;
 	border-color: black;
 `;

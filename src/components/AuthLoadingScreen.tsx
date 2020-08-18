@@ -11,6 +11,7 @@ import { Auth } from '../reducer/type';
 import axios from 'axios';
 import Post from '../containers/Post';
 import PostDetail from '../containers/PostDetail';
+import Afff from './Afff';
 import * as config from '../../env';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -78,7 +79,7 @@ class AuthLoadingScreen extends Component<Auth> {
 			</Tab.Navigator>
 		) : (
 			<Stack.Navigator>
-				<Stack.Screen name="Loding" component={Loding} />
+				<Stack.Screen name="Loding" component={Afff} />
 			</Stack.Navigator>
 		);
 	}

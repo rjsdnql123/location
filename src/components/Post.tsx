@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { TextInput, View, Text, TouchableOpacity, SafeAreaView, Button } from 'react-native';
 import styled from 'styled-components/native';
 import { PostPropst, PostState } from '../reducer/type';
 
@@ -12,42 +12,58 @@ class Post extends Component<PostPropst, PostState> {
 			contents: '',
 		};
 	}
+
+	componentDidMount() {
+		this.props.navigation.setOptions({
+			headerRight: () => (
+				<Button
+					onPress={() => {
+						return (
+							this.props.navigation.navigate('홈'),
+							this.props.writing(this.props.userId, this.state.title, this.state.contents),
+							alert('게시글이 등록 되었습니다.')
+						);
+					}}
+					title="글등록"
+				/>
+			),
+		});
+	}
 	//게시글 등록후 메인 페이지로 이동시킨다.
 	render() {
 		console.log(this.props, 'props post');
 		console.log(this.state, 'state');
 		return (
-			<SafeAreaView>
-				<View>
-					<Text>여기다 포스트 쓸꺼야</Text>
-					<Text>
-						여기다 타이틀 쓰기
-						<TextInput value={this.state.title} onChangeText={(title) => this.setState({ title })} />
-					</Text>
-					<Text>
-						여기다 내용 쓰기
-						<TextInput value={this.state.contents} onChangeText={(contents) => this.setState({ contents })} />
-					</Text>
+			<Post_Writing>
+				<Title_Writing
+					placeholder="제목을 입력하세요"
+					value={this.state.title}
+					onChangeText={(title: string) => this.setState({ title })}
+				/>
 
-					<UserLogin
-						onPress={() => {
-							return (
-								this.props.navigation.navigate('Main'),
-								this.props.writing(this.props.userId, this.state.title, this.state.contents)
-							);
-						}}
-					>
-						{/* <UserLogin onPress={() => this.props.writing(this.props.userId,this.state.title,this.state.contents)}> */}
-
-						<Text>이거클릭</Text>
-						{/* </UserLogin> */}
-					</UserLogin>
-				</View>
-			</SafeAreaView>
+				<Content_Writing
+					placeholder="내용을 입력하세요"
+					multiline
+					value={this.state.contents}
+					onChangeText={(contents: string) => this.setState({ contents })}
+				/>
+			</Post_Writing>
 		);
 	}
 }
-const UserLogin = styled.TouchableOpacity`
-	background-color: blue;
+
+const Post_Writing = styled.View`
+	margin: 10px;
+`;
+
+const Title_Writing = styled.TextInput`
+	border: 1px;
+	height: 10%;
+	font-size: 17px;
+`;
+
+const Content_Writing = styled.TextInput`
+	border: 1px;
+	height: 70%;
 `;
 export default Post;

@@ -27,6 +27,7 @@ export interface Comments {
 }
 
 export interface Navigation {
+	setOptions: Function;
 	navigate: Function;
 }
 
