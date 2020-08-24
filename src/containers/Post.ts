@@ -14,7 +14,7 @@ const mapStateToProps = (state: ReduxState) => {
 
 const mapDispatchToProps = (dispatch: Function) => {
 	return {
-		writing: (userId:number, title:string, contents:string) =>
+		writing: (userId: number, title: string, contents: string) =>
 			axios
 				.post(`http://${config.SERVER_PORT}/post/post`, {
 					userId: userId,

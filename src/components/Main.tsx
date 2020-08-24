@@ -140,4 +140,3 @@ const PostNickname = styled.Text`
 const Comments = styled.Text`
 	color: palevioletred;
 `;
-

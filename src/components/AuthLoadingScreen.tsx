@@ -11,16 +11,15 @@ import { Auth } from '../reducer/type';
 import axios from 'axios';
 import Post from '../containers/Post';
 import PostDetail from '../containers/PostDetail';
-import Afff from './Afff';
 import * as config from '../../env';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ProFile from '../containers/ProFile';
 
 const Stack = createStackNavigator();
 const Home = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function HomePage(props: any) {
-	console.log(props, '이거여기프롯');
 	return (
 		<Home.Navigator>
 			<Home.Screen name="홈" component={Main} initialParams={{ userId: props.route.params.userId }} />
@@ -30,7 +29,6 @@ function HomePage(props: any) {
 }
 
 function PostWirting(props: any) {
-	console.log(props, '이거여기프롯');
 	return (
 		<Stack.Navigator>
 			<Stack.Screen name="글쓰기" component={Post} />
@@ -76,10 +74,11 @@ class AuthLoadingScreen extends Component<Auth> {
 			<Tab.Navigator>
 				<Tab.Screen name="홈" component={HomePage} initialParams={{ userId: this.props.userId }} />
 				<Tab.Screen name="글쓰기" component={PostWirting} />
+				<Tab.Screen name="회원정보" component={ProFile} />
 			</Tab.Navigator>
 		) : (
 			<Stack.Navigator>
-				<Stack.Screen name="Loding" component={Afff} />
+				<Stack.Screen name="Loding" component={Loding} />
 			</Stack.Navigator>
 		);
 	}

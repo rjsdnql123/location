@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: Function) => {
 	return {
 		isLogin: (userLogin: string) => dispatch(setLogin(userLogin)),
 		information: (userInformation: Information) => dispatch(setInformation(userInformation)),
-		getUserTokens: (value:string, information:Function, isLogin:Function) =>
+		getUserTokens: (value: string, information: Function, isLogin: Function) =>
 			axios
 				.get(`http://${config.SERVER_PORT}/user/auth`, {
 					headers: {
