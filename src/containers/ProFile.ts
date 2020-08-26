@@ -16,7 +16,7 @@ const mapDispachToProps = (dispatch: Function) => {
 	return {
 		userProFile: (userId: Number) =>
 			axios.get(`http://${config.SERVER_PORT}/user/user_post?userId=${userId}`).then((res) => {
-				console.log(res, 'res');
+				return res.data
 			}),
 	};
 };
