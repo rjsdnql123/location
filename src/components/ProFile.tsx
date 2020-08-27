@@ -1,4 +1,4 @@
-import { TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { TextInput, View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
@@ -18,27 +18,37 @@ class ProFile extends React.Component {
 		console.log(this.state.profile);
 
 		return this.state.profile[0] ? (
-			<View>
-				<Text>닉네임: {this.state.profile[0].nickname}</Text>
-				<Text>이메일: {this.state.profile[0].email}</Text>
-				<Text>위치: {this.state.profile[0].location}</Text>
-				{this.state.profile[0].posts.map((x, index) => (
+			<ProFileView>
+				<Post>
+					<Text>닉s네임: {this.state.profile[0].nickname}</Text>
+					<Text>이메일: {this.state.profile[0].email}</Text>
+					<Text>위치: {this.state.profile[0].location}</Text>
+				</Post>
+				{/* {this.state.profile[0].posts.map((x, index) => (
 					<Post key={index}>
 						<Title>타이틀 {x.title}</Title>
 						<Contents>내용 {x.contents}</Contents>
 					</Post>
-				))}
-			</View>
+				))} */}
+				<TouchableOpacity>
+					<Text>내가쓴 글</Text>
+				</TouchableOpacity>
+				<TouchableOpacity>
+					<Text>내가 쓴 댓글</Text>
+				</TouchableOpacity>
+			</ProFileView>
 		) : (
-			<View />
+			<ScrollView />
 		);
 	}
 }
 const Post = styled.View`
-	border-bottom-width: 1px;
-	border-bottom-color: palevioletred;
-	border-top-width: 1px;
-	border-top-color: palevioletred;
+	background-color: white;
+`;
+const ProFileView = styled.ScrollView`
+	margin: 10px;
+	border: palevioletred;
+	padding: 5px;
 `;
 
 const Title = styled.Text`

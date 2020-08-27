@@ -35,7 +35,13 @@ function PostWirting(props: any) {
 		</Stack.Navigator>
 	);
 }
-
+function ProFileRender(props: any) {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name="프로필" component={ProFile} />
+		</Stack.Navigator>
+	);
+}
 class AuthLoadingScreen extends Component<Auth> {
 	constructor(props: Auth) {
 		super(props);
@@ -74,7 +80,7 @@ class AuthLoadingScreen extends Component<Auth> {
 			<Tab.Navigator>
 				<Tab.Screen name="홈" component={HomePage} initialParams={{ userId: this.props.userId }} />
 				<Tab.Screen name="글쓰기" component={PostWirting} />
-				<Tab.Screen name="회원정보" component={ProFile} />
+				<Tab.Screen name="회원정보" component={ProFileRender} />
 			</Tab.Navigator>
 		) : (
 			<Stack.Navigator>
