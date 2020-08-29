@@ -1,7 +1,7 @@
 import { TextInput, View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-
+import { MaterialCommunityIcons, Entypo, FontAwesome } from '@expo/vector-icons';
 class ProFile extends React.Component {
 	constructor(props) {
 		super(props);
@@ -10,33 +10,40 @@ class ProFile extends React.Component {
 		};
 	}
 	async componentDidMount() {
+		console.log('실행됨니다용');
 		this.setState({
 			profile: await this.props.userProFile(this.props.userId),
 		});
 	}
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log(nextState, 'nextProps');
+		return true;
+	}
 	render() {
-		console.log(this.state.profile);
+		console.log(this.state, 's이거 뭐에용');
 
-		return this.state.profile[0] ? (
-			<ProFileView>
+		return this.state.profile ? (
+			<ScrollView>
 				<Post>
-					<Text>닉s네임: {this.state.profile[0].nickname}</Text>
-					<Text>이메일: {this.state.profile[0].email}</Text>
-					<Text>위치: {this.state.profile[0].location}</Text>
+					<MaterialCommunityIcons name="human-greeting" size={50} color="black" />
+					<View>
+						<Text>
+							닉네임: {this.state.profile.nickname} ({this.state.profile.email})
+						</Text>
+						<Text>위치: {this.state.profile.location}</Text>
+					</View>
 				</Post>
-				{/* {this.state.profile[0].posts.map((x, index) => (
-					<Post key={index}>
-						<Title>타이틀 {x.title}</Title>
-						<Contents>내용 {x.contents}</Contents>
-					</Post>
-				))} */}
-				<TouchableOpacity>
-					<Text>내가쓴 글</Text>
-				</TouchableOpacity>
-				<TouchableOpacity>
-					<Text>내가 쓴 댓글</Text>
-				</TouchableOpacity>
-			</ProFileView>
+				<ButtonView>
+					<TouchableOpacity onPress={() => this.props.navigation.navigate('내가 쓴 글')}>
+						<Entypo name="pencil" size={24} color="black" />
+						<Text>내가쓴 글</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => this.props.navigation.navigate('내가 쓴 댓글')}>
+						<FontAwesome name="commenting-o" size={24} color="black" />
+						<Text>내가 쓴 댓글</Text>
+					</TouchableOpacity>
+				</ButtonView>
+			</ScrollView>
 		) : (
 			<ScrollView />
 		);
@@ -44,11 +51,13 @@ class ProFile extends React.Component {
 }
 const Post = styled.View`
 	background-color: white;
+	padding: 20px;
+	flex-direction: row;
+	margin-bottom: 5px;
 `;
-const ProFileView = styled.ScrollView`
-	margin: 10px;
-	border: palevioletred;
-	padding: 5px;
+const ButtonView = styled.View`
+	background-color: white;
+	padding: 20px;
 `;
 
 const Title = styled.Text`

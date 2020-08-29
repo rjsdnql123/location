@@ -15,8 +15,9 @@ const mapStateToProps = (state: ReduxState) => {
 const mapDispachToProps = (dispatch: Function) => {
 	return {
 		userProFile: (userId: Number) =>
-			axios.get(`http://${config.SERVER_PORT}/user/user_post?userId=${userId}`).then((res) => {
-				return res.data
+			axios.get(`http://${config.SERVER_PORT}/user/information?userId=${userId}`).then((res) => {
+				console.log(res.data, 'dtae');
+				return res.data[0];
 			}),
 	};
 };
