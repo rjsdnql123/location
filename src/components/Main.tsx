@@ -45,72 +45,54 @@ function Main(props: MainProps) {
 		}
 	}, []);
 
-	console.log(props, 'mainProps');
 	if (props.post[0] === undefined) {
 		return (
-			<SafeAreaView>
-				<PostView>
-					<TouchableOpacity
-						onPress={() => {
-							return props.navigation.navigate('Post');
-						}}
-					>
-						<Text>POST쓰기</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => {
-							AsyncStorage.clear();
-							props.isLogin('false');
-
-							alert('로그아웃');
-						}}
-					>
-						<Text>main</Text>
-					</TouchableOpacity>
-				</PostView>
-			</SafeAreaView>
-		);
-	}
-	return (
-		<SafeAreaView>
-			<PostView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-				{props.post.map((a, index) => (
-					<Post key={index}>
-						<TouchableOpacity
-							onPress={() =>
-								props.navigation.navigate('PostDetail', {
-									postIndex: index,
-									postId: a.post_Id,
-								})
-							}
-						>
-							<PostNickname>nickname: {a.user.nickname}</PostNickname>
-							<Title>title: {a.title}</Title>
-							<Contents>Contents: {a.contents}...</Contents>
-							<Comments>댓글: {a.comments.length}</Comments>
-						</TouchableOpacity>
-					</Post>
-				))}
-				<TouchableOpacity
-					onPress={() => {
-						return props.navigation.navigate('Post');
-					}}
-				>
-					<Text>POST쓰기</Text>
-				</TouchableOpacity>
+			<PostView>
 				<TouchableOpacity
 					onPress={() => {
 						AsyncStorage.clear();
 						props.isLogin('false');
 
 						alert('로그아웃');
-						// props.navigation.navigate('Login'); // 작동됨
 					}}
 				>
 					<Text>main</Text>
 				</TouchableOpacity>
 			</PostView>
-		</SafeAreaView>
+		);
+	}
+	console.log('또 렌더링?');
+	return (
+		<PostView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+			{props.post.map((a, index) => (
+				<Post key={index}>
+					<TouchableOpacity
+						onPress={() =>
+							props.navigation.navigate('글 목록', {
+								postIndex: index,
+								postId: a.post_Id,
+							})
+						}
+					>
+						<PostNickname>nickname: {a.user.nickname}</PostNickname>
+						<Title>title: {a.title}</Title>
+						<Contents>Contents: {a.contents}...</Contents>
+						<Comments>댓글: {a.comments.length}</Comments>
+					</TouchableOpacity>
+				</Post>
+			))}
+			<TouchableOpacity
+				onPress={() => {
+					AsyncStorage.clear();
+					props.isLogin('false');
+
+					alert('로그아웃');
+					// props.navigation.navigate('Login'); // 작동됨
+				}}
+			>
+				<Text>main</Text>
+			</TouchableOpacity>
+		</PostView>
 	);
 }
 

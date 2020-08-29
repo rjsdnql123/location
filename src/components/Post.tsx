@@ -54,16 +54,17 @@ class Post extends Component<PostPropst, PostState> {
 
 const Post_Writing = styled.View`
 	margin: 10px;
+	height: 70%;
 `;
 
 const Title_Writing = styled.TextInput`
 	border: 1px;
-	height: 10%;
+	height: 40px;
 	font-size: 17px;
 `;
 
 const Content_Writing = styled.TextInput`
 	border: 1px;
-	height: 70%;
+	height: 100%;
 `;
 export default Post;
