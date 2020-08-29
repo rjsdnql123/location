@@ -14,7 +14,8 @@ import PostDetail from '../containers/PostDetail';
 import * as config from '../../env';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProFile from '../containers/ProFile';
-
+import User_Write from './User_Write';
+import User_Comments from '../containers/User_Comments';
 const Stack = createStackNavigator();
 const Home = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,11 +24,10 @@ function HomePage(props: any) {
 	return (
 		<Home.Navigator>
 			<Home.Screen name="홈" component={Main} initialParams={{ userId: props.route.params.userId }} />
-			<Home.Screen name="PostDetail" component={PostDetail} />
+			<Home.Screen name="글 목록" component={PostDetail} />
 		</Home.Navigator>
 	);
 }
-
 function PostWirting(props: any) {
 	return (
 		<Stack.Navigator>
@@ -39,6 +39,8 @@ function ProFileRender(props: any) {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen name="프로필" component={ProFile} />
+			<Stack.Screen name="내가 쓴 글" component={User_Write} />
+			<Stack.Screen name="내가 쓴 댓글" component={User_Comments} />
 		</Stack.Navigator>
 	);
 }
