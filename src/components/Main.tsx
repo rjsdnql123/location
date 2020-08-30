@@ -47,7 +47,7 @@ function Main(props: MainProps) {
 
 	if (props.post[0] === undefined) {
 		return (
-			<PostView>
+			<ScrollView>
 				<TouchableOpacity
 					onPress={() => {
 						AsyncStorage.clear();
@@ -58,12 +58,12 @@ function Main(props: MainProps) {
 				>
 					<Text>main</Text>
 				</TouchableOpacity>
-			</PostView>
+			</ScrollView>
 		);
 	}
 	console.log('또 렌더링?');
 	return (
-		<PostView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+		<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 			{props.post.map((a, index) => (
 				<Post key={index}>
 					<TouchableOpacity
@@ -74,9 +74,9 @@ function Main(props: MainProps) {
 							})
 						}
 					>
-						<PostNickname>nickname: {a.user.nickname}</PostNickname>
-						<Title>title: {a.title}</Title>
-						<Contents>Contents: {a.contents}...</Contents>
+						<PostNickname>닉네임 : {a.user.nickname}</PostNickname>
+						<Title>내용: {a.title}</Title>
+						<Text>Contents: {a.contents}</Text>
 						<Comments>댓글: {a.comments.length}</Comments>
 					</TouchableOpacity>
 				</Post>
@@ -92,28 +92,12 @@ function Main(props: MainProps) {
 			>
 				<Text>main</Text>
 			</TouchableOpacity>
-		</PostView>
+		</ScrollView>
 	);
 }
 
 //게시글을 터치로 잡아서 해당 게시글 클릭시 해당 게시글 자세히 보기로 이동
 export default Main;
-const PostView = styled.ScrollView`
-	margin: 5%;
-`;
-const Post = styled.View`
-	border-bottom-width: 1px;
-	border-bottom-color: palevioletred;
-	border-top-width: 1px;
-	border-top-color: palevioletred;
-`;
-
-const Title = styled.Text`
-	font-weight: 900;
-	font-size: 30px;
-`;
-
-const Contents = styled.Text``;
 
 const PostNickname = styled.Text`
 	font-weight: 900;
@@ -121,4 +105,15 @@ const PostNickname = styled.Text`
 
 const Comments = styled.Text`
 	color: palevioletred;
+`;
+
+const Post = styled.View`
+	background-color: white;
+	padding: 20px;
+	margin-bottom: 5px;
+`;
+
+const Title = styled.Text`
+	font-weight: 900;
+	font-size: 18px;
 `;
