@@ -2,18 +2,17 @@
 
 실행하기 전에 src폴더에 env.ts 파일을 만들어 .env의 기능을 하는 파일을 하나 만들어 주어야 합니다.
 
-<iframe width="640" height="360" src="https://youtu.be/YHeyyVItN9A" frameborder="0" gesture="media" allowfullscreen=""></iframe>
-
+[![앱시연](http://img.youtube.com/vi/YHeyyVItN9A/0.jpg)](https://youtu.be/YHeyyVItN9A?t=0s) 
 /src/env.ts
 
 export const MAPS_API_KEY = 'YOU_GOOGLEMAPS_API_KEY';
 
 export const SERVER_PORT = 'YOU_LOCALHOST_IP:8080';
-
+```
 cd location
 
 npm start
-
+```
 location은 지역기반 커뮤니티 어플리케이션으로 사용자의 해당 지역을 기준으로 같은 지역에서 회원가입한 유저의 게시글만 보여주는 어플리케이션입니다.
 
 # 목적
