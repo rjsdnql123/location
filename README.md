@@ -1,6 +1,7 @@
 # locatio
 
 실행하기 전에 src폴더에 env.ts 파일을 만들어 .env의 기능을 하는 파일을 하나 만들어 주어야 합니다.
+
 <iframe width="640" height="360" src="https://youtu.be/YHeyyVItN9A" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 /src/env.ts
