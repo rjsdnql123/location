@@ -1,5 +1,5 @@
-import { TextInput, View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import React, { useState } from 'react';
+import {  View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React from 'react';
 import styled from 'styled-components/native';
 import { MaterialCommunityIcons, Entypo, FontAwesome } from '@expo/vector-icons';
 class ProFile extends React.Component {
@@ -10,18 +10,14 @@ class ProFile extends React.Component {
 		};
 	}
 	async componentDidMount() {
-		console.log('실행됨니다용');
 		this.setState({
 			profile: await this.props.userProFile(this.props.userId),
 		});
 	}
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log(nextState, 'nextProps');
 		return true;
 	}
 	render() {
-		console.log(this.state, 's이거 뭐에용');
-
 		return this.state.profile ? (
 			<ScrollView>
 				<Post>

@@ -23,7 +23,6 @@ class User_Comments extends React.Component {
 		return true;
 	}
 	render() {
-		console.log(this.state, '이거 뭔지 알면 됨');
 		return this.state.comments ? (
 			<ScrollView>
 				{this.state.comments.map((x, index) => (

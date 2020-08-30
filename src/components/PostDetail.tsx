@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { TextInput, View, Text, TouchableOpacity } from 'react-native';
+import {  View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { PostDetailProps, PostContent } from '../reducer/type';
 //해당 게시글에 상제 정보 타이틀과 댓글목록
 function PostName({ post, route }: PostContent) {
-	console.log(post, '우우우ㅜㅇ');
 	return (
 		<Post>
 			<Title> title {post[route.params.postIndex].title}</Title>
@@ -17,7 +16,6 @@ function PostName({ post, route }: PostContent) {
 const PostNames = React.memo(PostName);
 
 function Commentss({ post, route }: PostContent) {
-	console.log(post, route);
 	return (
 		<View>
 			{post[route.params.postIndex].comments.map((comments: any, index) => (
@@ -35,7 +33,6 @@ const Commentsss = React.memo(Commentss);
 
 function PostDetail({ post, route, writingComment, userId }: PostDetailProps) {
 	const [writeComments, setComments] = useState('');
-	console.log(writeComments);
 
 	return (
 		<PostScreen>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Text, TouchableOpacity, SafeAreaView, Button } from 'react-native';
+import {  Button } from 'react-native';
 import styled from 'styled-components/native';
 import { PostPropst, PostState } from '../reducer/type';
 
@@ -31,8 +31,7 @@ class Post extends Component<PostPropst, PostState> {
 	}
 	//게시글 등록후 메인 페이지로 이동시킨다.
 	render() {
-		console.log(this.props, 'props post');
-		console.log(this.state, 'state');
+
 		return (
 			<Post_Writing>
 				<Title_Writing

@@ -48,29 +48,22 @@ class SignUp extends Component<LoginProps, User> {
 					password: '',
 				});
 				alert('이메일이 중복 되었습니다');
-				console.log(err, 'err');
 			});
 	};
 
 	getLocation = async () => {
 		const location = await Location.getCurrentPositionAsync();
-		console.log(location);
 		this.setState({
 			lat: location.coords.latitude,
 			lng: location.coords.longitude,
 		});
-		console.log('현재위치 lat', this.state.lat);
-		console.log('현재위치 lng', config.MAPS_API_KEY);
 		//역 지오코딩 이용해서 지역 찾기
 		axios
 			.get(
 				`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&key=${config.MAPS_API_KEY}`
 			) // 위도, 경도 google maps api로 보냄
 			.then((res: any) => {
-				console.log(res, '이뭐야');
-				console.log('반환된 주소값', res.data.results[5].formatted_address);
 				const result = res.data.results[5].formatted_address.slice(5); // 앞에 대한민국은 뺀다.
-				console.log('최종 주소값', result);
 				this.setState({
 					location: result,
 				});
@@ -81,7 +74,6 @@ class SignUp extends Component<LoginProps, User> {
 	};
 
 	render() {
-		console.log(this.props, 'signUp');
 		return (
 			<View>
 				<Email>

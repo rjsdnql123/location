@@ -8,7 +8,6 @@ const initialState = {
 };
 
 const Reducer = (state = initialState, action: ReducerAction) => {
-	console.log(action, '이거뭔지알려주세요');
 	switch (action.type) {
 		case SET_LOGIN:
 			return Object.assign({}, state, {

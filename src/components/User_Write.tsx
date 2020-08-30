@@ -7,7 +7,6 @@ class User_Write extends React.Component {
 		super(props);
 	}
 	render() {
-		console.log(this.props.route.params.posts, '이거 뭔지 알면 됨');
 		return this.props.route.params.posts ? (
 			<ScrollView>
 				{this.props.route.params.posts.map((x, index) => (

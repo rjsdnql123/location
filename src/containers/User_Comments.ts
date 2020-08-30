@@ -1,18 +1,15 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { HeaderTitle } from '@react-navigation/stack';
 import User_Comments from '../components/User_Comments';
-import { setPost } from '../action';
-import { MainPostData, ReduxState } from '../reducer/type';
+import { ReduxState } from '../reducer/type';
 import * as config from '../../env';
 const mapStateToProps = (state: ReduxState) => {
-	console.log(state, 'poost');
 	return {
 		userId: state.reducer.information.user_Id,
 	};
 };
 
-const mapDispachToProps = (dispatch: Function) => {
+const mapDispachToProps = () => {
 	return {
 		userProFile: (userId: Number) =>
 			axios.get(`http://${config.SERVER_PORT}/user/user_post?userId=${userId}`).then((res) => {

@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../containers/Login';
 import SignUp from './SignUp';
 import Loding from './Loding';
 import Main from '../containers/Main';
-import { setLogin } from '../action/index';
 import { Auth } from '../reducer/type';
-import axios from 'axios';
 import Post from '../containers/Post';
 import PostDetail from '../containers/PostDetail';
-import * as config from '../../env';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProFile from '../containers/ProFile';
 import User_Write from './User_Write';
@@ -55,13 +51,9 @@ class AuthLoadingScreen extends Component<Auth> {
 	//토큰 기한이 말료되면 클라이언트에 토큰을 초기화 시키기
 	getUserToken = async () => {
 		try {
-			console.log('지나가냐?');
 			const value = await AsyncStorage.getItem('USERTOKEN');
-			console.log(value, 'cadkenvine');
 			this.props.getUserTokens(value, this.props.information, this.props.isLogin);
-		} catch (error) {
-			console.log(error, 'error');
-		}
+		} catch (error) {}
 	};
 
 	componentDidMount() {
@@ -69,7 +61,6 @@ class AuthLoadingScreen extends Component<Auth> {
 	}
 
 	render() {
-		console.log(this.props, 'props ahow');
 		if (this.props.userId) {
 			this.props.information({ user_Id: this.props.userId });
 		}

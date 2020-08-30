@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
 
 import reducer from './reducer';
-// import Myprofile from './Myprofile'
 
+//리듀서와 연결
 const rootReducer = combineReducers({
 	reducer,
-	// Myprofile
 });
 
 export default rootReducer;

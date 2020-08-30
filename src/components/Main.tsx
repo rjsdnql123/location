@@ -1,22 +1,9 @@
-import {
-	TextInput,
-	View,
-	Text,
-	TouchableOpacity,
-	ScrollView,
-	RefreshControl,
-	StyleSheet,
-	SafeAreaView,
-} from 'react-native';
-import React, { Component, useState, useEffect } from 'react';
+import { Text, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
-import { User, MainProps, MainPostData } from '../reducer/type';
-import * as Location from 'expo-location';
-const axios = require('axios');
+import { MainProps } from '../reducer/type';
+
 import { AsyncStorage } from 'react-native';
-import { connect } from 'react-redux';
-import { setLogin } from '../action';
-import PostDetail from './PostDetail';
 
 //해당 유저의 지역에 걸맞는 포스트 내용들을 불러와준다.
 
@@ -38,7 +25,6 @@ function Main(props: MainProps) {
 	}, []);
 
 	useEffect(() => {
-		console.log(props, 'Main');
 		const { userId } = props.route.params;
 		if (userId) {
 			props.postSet(userId);
@@ -61,7 +47,6 @@ function Main(props: MainProps) {
 			</ScrollView>
 		);
 	}
-	console.log('또 렌더링?');
 	return (
 		<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 			{props.post.map((a, index) => (

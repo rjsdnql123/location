@@ -1,14 +1,11 @@
-import { TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { User, LoginProps } from '../reducer/type';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import App from '../App';
-import { connect } from 'react-redux';
-import { setLogin } from '../action';
+
 import * as config from '../../env';
-import AuthLoding from '../containers/AuthLoding';
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 // 값이 바뀔때 마다 이메일 형식인지 확인한다?
 
@@ -42,17 +39,14 @@ class Login extends Component<LoginProps, User> {
 						this.props.isLogin('true');
 						return alert('로그인 성공');
 					} else if (res.status === 404) {
-						console.log('ddnc');
 					}
 				});
 		} catch (error) {
-			console.log('error');
 			return alert('실패');
 		}
 	};
 
 	render() {
-		console.log(this.props, 'thisporposdia');
 		return (
 			<View>
 				<MainLoginText>Log In</MainLoginText>
