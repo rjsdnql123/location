@@ -15,7 +15,7 @@
 </div>
 
 ### Clone
- - location server 도 실행시켜야 합니다.
+ - location server 도 clone 하여야 합니다.
  ```
  https://github.com/rjsdnql123/location_server
  ```
