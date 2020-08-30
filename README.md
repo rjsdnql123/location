@@ -1,8 +1,26 @@
 # locatio
 
-실행하기 전에 src폴더에 env.ts 파일을 만들어 .env의 기능을 하는 파일을 하나 만들어 주어야 합니다.
-
+# 앱 시연 YouTube 동영상
 [![앱시연](http://img.youtube.com/vi/YHeyyVItN9A/0.jpg)](https://youtu.be/YHeyyVItN9A?t=0s) 
+
+## npm start
+
+<div>
+<img src="https://user-images.githubusercontent.com/61114705/91667113-1f5de100-eb3d-11ea-875a-ca94810dfa89.png" width="200px" height="150px"></img>
+<img src="https://user-images.githubusercontent.com/61114705/91667054-cbeb9300-eb3c-11ea-8cb6-1abedbbc3cad.png" width="100px" height="150px"></img>
+<img src="https://user-images.githubusercontent.com/61114705/91667068-d9a11880-eb3c-11ea-81dd-4ee80bbdae55.png" width="100px" height="150px"></img>
+<img src="https://user-images.githubusercontent.com/61114705/91667070-ddcd3600-eb3c-11ea-8228-16a6ef4124f6.png" width="100px" height="150px"></img>
+<img src="https://user-images.githubusercontent.com/61114705/91667075-e291ea00-eb3c-11ea-870c-145ee004d82a.png" width="100px" height="150px"></img>
+<img src="https://user-images.githubusercontent.com/61114705/91667078-e6be0780-eb3c-11ea-9e28-b4b19b391780.png" width="100px" height="150px"></img>
+</div>
+
+### Clone
+ - location server 도 실행시켜야 합니다.
+ ```
+ https://github.com/rjsdnql123/location_server
+ ```
+ 
+실행하기 전에 src폴더에 env.ts 파일을 만들어 .env의 기능을 하는 파일을 하나 만들어 주어야 합니다.
 ```
 //  /src/env.ts
 
