@@ -20,18 +20,18 @@ class Login extends Component<LoginProps, User> {
 
 	// 이메일 형식인지 확인
 	CheckEmail = (email: string) => {
-		try {
-			const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-			const checkEmail = emailRegex.test(email);
-			if (!checkEmail) {
-				return alert('이메일 형식이 아닙니다!');
-			}
+		const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+		const checkEmail = emailRegex.test(email);
+		if (!checkEmail) {
+			alert('이메일 형식이 아닙니다!');
+		} else {
 			axios
 				.post(`http://${config.SERVER_PORT}/user/signin`, {
 					email: this.state.email,
 					password: this.state.password,
 				})
 				.then(async (res) => {
+					console.log(res);
 					if (res.status === 200) {
 						//성공시 메인 페이지
 						await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
@@ -39,10 +39,13 @@ class Login extends Component<LoginProps, User> {
 						this.props.isLogin('true');
 						return alert('로그인 성공');
 					} else if (res.status === 404) {
+						console.log('aaa');
+						alert('이메일과 비밀번호를 확인해 주세요');
 					}
+				})
+				.catch(() => {
+					alert('이메일과 비밀번호를 확인해 주세요');
 				});
-		} catch (error) {
-			return alert('실패');
 		}
 	};
 
@@ -80,7 +83,6 @@ class Login extends Component<LoginProps, User> {
 		);
 	}
 }
-// onPress={() => navigation.navigate('Details')}
 const Email = styled.View`
 	border-bottom-width: 3px;
 	border-bottom-color: palevioletred;
@@ -131,5 +133,5 @@ const SignUpView = styled.View`
 	align-items: center;
 	justify-content: center;
 `;
-//디자인문제
+
 export default Login;

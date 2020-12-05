@@ -24,35 +24,51 @@ class SignUp extends Component<LoginProps, User> {
 	}
 
 	CheckEmail = async (email: string) => {
+		console.log('지나가?');
 		const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 		const checkEmail = emailRegex.test(email);
+		let allPass = true;
+		for (let key in this.state) {
+			if (this.state[key] === '') allPass = false;
+		}
 		if (!checkEmail) {
 			return alert('이메일 에러');
-		}
-		//통과되면 서버에 요청을 보내 회원가입 요청 날리기
-		await axios
-			.post(`http://${config.SERVER_PORT}/user/signup`, {
-				email: this.state.email,
-				password: this.state.password,
-				nickname: this.state.nickname,
-				age: this.state.age,
-				location: this.state.location,
-			})
-			.then(() => {
-				alert('회원가입 완료');
-				this.props.navigation.navigate('Login');
-			})
-			.catch((err: string) => {
-				this.setState({
-					email: '',
-					password: '',
+		} else if (!allPass) {
+			console.log('미통과');
+			alert('빈칸을 채워주세요');
+		} else {
+			console.log(config.SERVER_PORT);
+			//통과되면 서버에 요청을 보내 회원가입 요청 날리기
+			await axios
+				.post(`http://localhost:8080/user/signup`, {
+					email: this.state.email,
+					password: this.state.password,
+					nickname: this.state.nickname,
+					age: this.state.age,
+					location: this.state.location,
+				})
+				.then(() => {
+					console.log('완료');
+					alert('회원가입 완료');
+					this.props.navigation.navigate('Login');
+				})
+				.catch((err: string) => {
+					this.setState({
+						email: '',
+						password: '',
+					});
+					alert('이메일이 중복 되었습니다');
+					console.log(err, 'err');
 				});
-				alert('이메일이 중복 되었습니다');
-			});
+		}
 	};
 
 	getLocation = async () => {
+		let { status } = await Location.requestPermissionsAsync();
 		const location = await Location.getCurrentPositionAsync();
+		if (status !== 'granted') {
+			alert('위치공유를 수락해 주세요');
+		}
 		this.setState({
 			lat: location.coords.latitude,
 			lng: location.coords.longitude,
@@ -77,41 +93,76 @@ class SignUp extends Component<LoginProps, User> {
 		return (
 			<View>
 				<Email>
-					<Text>email</Text>
-					<TextInput value={this.state.email} onChangeText={(email) => this.setState({ email })} />
+					<UserInformation
+						placeholder="email"
+						value={this.state.email}
+						onChangeText={(email: string) => this.setState({ email })}
+					/>
 				</Email>
 				<Email>
-					<Text>password</Text>
-					<TextInput value={this.state.password} onChangeText={(password) => this.setState({ password })} />
+					<UserInformation
+						placeholder="password"
+						secureTextEntry={true}
+						value={this.state.password}
+						onChangeText={(password: string) => this.setState({ password })}
+					/>
 				</Email>
 				<Email>
-					<Text>nickname</Text>
-					<TextInput value={this.state.nickname} onChangeText={(nickname) => this.setState({ nickname })} />
+					<UserNickName
+						placeholder="nickname"
+						value={this.state.nickname}
+						onChangeText={(nickname: string) => this.setState({ nickname })}
+					/>
 				</Email>
 				<Email>
-					<Text>age</Text>
-					<TextInput value={this.state.age} onChangeText={(age) => this.setState({ age })} />
+					<UserInformation placeholder="age" value={this.state.age} onChangeText={(age) => this.setState({ age })} />
 				</Email>
 				<Email>
 					<TouchableOpacity onPress={() => this.getLocation()}>
-						<Text>location</Text>
-						<TextInput value={this.state.location} onChangeText={(location) => this.setState({ location })} />
+						<Text>{this.state.location === '' ? '클릭해 지역을 받아주세요' : this.state.location}</Text>
 					</TouchableOpacity>
 				</Email>
-				<UserLogin onPress={() => this.CheckEmail(this.state.email)}>
-					<Text>Pick a photo</Text>
-				</UserLogin>
+				<SignUpButton onPress={() => this.CheckEmail(this.state.email)}>
+					<SignUpText>touch pealse</SignUpText>
+				</SignUpButton>
 			</View>
 		);
 	}
 }
-
+const UserInformation = styled.TextInput`
+	width: 91%;
+	padding: 5px;
+`;
+const UserNickName = styled.TextInput`
+	font-size: 17px;
+	width: 91%;
+	padding: 5px;
+`;
 const Email = styled.View`
-	border: 1px solid palevioletred;
+	border-bottom-width: 3px;
+	border-bottom-color: palevioletred;
+	display: flex;
+	flex-direction: row;
+	margin: 5%;
 `;
 
-const UserLogin = styled.TouchableOpacity`
-	background-color: blue;
+const SignUpButton = styled.TouchableOpacity`
+	border: 1px solid palevioletred;
+	border-radius: 50px;
+	background-color: palevioletred;
+	width: 70%
+	height: 15%
+    alignItems: center
+	margin: 15%
+	align-items: center;
+	justify-content: center;
+`;
+
+const SignUpText = styled.Text`
+	font-size: 30px;
+	font-weight: 900;
+
+	color: white;
 `;
 
 export default SignUp;

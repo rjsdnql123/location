@@ -61,6 +61,7 @@ class AuthLoadingScreen extends Component<Auth> {
 	}
 
 	render() {
+		console.log(this.props.setLogin);
 		if (this.props.userId) {
 			this.props.information({ user_Id: this.props.userId });
 		}

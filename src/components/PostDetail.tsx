@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import {  View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { PostDetailProps, PostContent } from '../reducer/type';
 //해당 게시글에 상제 정보 타이틀과 댓글목록
 function PostName({ post, route }: PostContent) {
 	return (
 		<Post>
-			<Title> title {post[route.params.postIndex].title}</Title>
-			<PostNickname>닉네임 대전 {post[route.params.postIndex].user.nickname}</PostNickname>
+			<Title> 제목: {post[route.params.postIndex].title}</Title>
+			<PostNickname>닉네임: {post[route.params.postIndex].user.nickname}</PostNickname>
 			<Time> 작성시간 {post[route.params.postIndex].updatedAt}</Time>
-			<Title>글 내용 {post[route.params.postIndex].contents}</Title>
+			<Title>내용: {post[route.params.postIndex].contents}</Title>
 		</Post>
 	);
 }
@@ -21,7 +21,7 @@ function Commentss({ post, route }: PostContent) {
 			{post[route.params.postIndex].comments.map((comments: any, index) => (
 				<Comments_Route key={index}>
 					<Text>
-						닉네임{comments.user.nickname} 작성시간 {comments.createdAt}
+						닉네임: {comments.user.nickname} 작성시간: {comments.createdAt}
 					</Text>
 					<Text>내용: {comments.Contents}</Text>
 				</Comments_Route>
@@ -67,7 +67,7 @@ const Post = styled.View`
 `;
 const Title = styled.Text`
 	font-weight: 900;
-	font-size: 30px;
+	font-size: 18px;
 `;
 const Time = styled.Text`
 	font-size: 8px;
@@ -94,7 +94,7 @@ const Comment_Box = styled.View`
 `;
 
 const Comments_Route = styled.View`
-padding:5px
+	padding:5px
 	border: 1px
 	background-color: #E2E2E2
 	;

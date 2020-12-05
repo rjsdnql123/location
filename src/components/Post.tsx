@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Button } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { PostPropst, PostState } from '../reducer/type';
 
@@ -21,6 +21,7 @@ class Post extends Component<PostPropst, PostState> {
 						return (
 							this.props.navigation.navigate('홈'),
 							this.props.writing(this.props.userId, this.state.title, this.state.contents),
+							this.setState({ title: '', contents: '' }),
 							alert('게시글이 등록 되었습니다.')
 						);
 					}}
@@ -31,7 +32,6 @@ class Post extends Component<PostPropst, PostState> {
 	}
 	//게시글 등록후 메인 페이지로 이동시킨다.
 	render() {
-
 		return (
 			<Post_Writing>
 				<Title_Writing
