@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import { Text, TouchableOpacity, ScrollView, RefreshControl, Image, View, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { MainProps } from '../reducer/type';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import * as config from '../../env';
 import { AsyncStorage } from 'react-native';
 import culturePick from '../containers/culturePick';
+import CultureRandom from '../containers/CultureRandom';
 
 //해당 유저의 지역에 걸맞는 포스트 내용들을 불러와준다.
 
@@ -13,6 +14,7 @@ import culturePick from '../containers/culturePick';
 
 function Main(props: MainProps) {
 	const [cultureList, cultureListset] = useState([]);
+	const [cultureArr] = useState(CultureRandom());
 
 	async function culturePick() {
 		return await axios.get(`http://${config.SERVER_PORT}/culture/pick`).then((res) => {
@@ -20,9 +22,7 @@ function Main(props: MainProps) {
 			cultureListset(res.data);
 			return res.data;
 		});
-		// return a
 	}
-	console.log(cultureList);
 	const wait = (timeout: number) => {
 		return new Promise((resolve) => {
 			setTimeout(resolve, timeout);
@@ -61,20 +61,29 @@ function Main(props: MainProps) {
 			</ScrollView>
 		);
 	}
+	// {cultureList[0].image_url}
 	return (
 		<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-			<div>
+			<View>
 				{cultureList.length === 0 ? (
 					[]
 				) : (
-					<div>
-						<div>{cultureList[0].title}</div>
-						<a href={`https://${cultureList[0].url}`}>
-							<img src={cultureList[0].image_url}></img>
-						</a>
-					</div>
+					<CultureView>
+						{cultureArr.map((x, index) => {
+							return (
+								<ASD
+									key={index}
+									onPress={() => {
+										Linking.openURL(`https://${cultureList[x].url}`);
+									}}
+								>
+									<CulturePhoto source={{ uri: cultureList[x].image_url }} />
+								</ASD>
+							);
+						})}
+					</CultureView>
 				)}
-			</div>
+			</View>
 			{props.post.map((a, index) => (
 				<Post key={index}>
 					<TouchableOpacity
@@ -123,10 +132,22 @@ const Post = styled.View`
 	padding: 20px;
 	margin-bottom: 5px;
 `;
+const CultureView = styled.View`
+	display: flex;
+	flex-direction: row;
+`;
 
 const Title = styled.Text`
 	font-weight: 900;
 	font-size: 18px;
+`;
+const CulturePhoto = styled.Image`
+	width: 100%;
+	height: 150px;
+`;
+const ASD = styled.TouchableOpacity`
+	width: 50%;
+	height: 150px;
 `;
 
 // import { Text, Linking, TouchableOpacity, ScrollView, RefreshControl, Button } from 'react-native';
