@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../containers/Login';
 import SignUp from './SignUp';
@@ -51,7 +51,7 @@ class AuthLoadingScreen extends Component<Auth> {
 	//토큰 기한이 말료되면 클라이언트에 토큰을 초기화 시키기
 	getUserToken = async () => {
 		try {
-			const value = await AsyncStorage.getItem('USERTOKEN');
+			// const value = await AsyncStorage.getItem('USERTOKEN');
 			this.props.getUserTokens(value, this.props.information, this.props.isLogin);
 		} catch (error) {}
 	};

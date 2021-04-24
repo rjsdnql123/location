@@ -4,7 +4,7 @@ import { setLogin, setInformation } from '../action';
 import { Information, ReduxState } from '../reducer/type';
 import axios from 'axios';
 import * as config from '../../env';
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
 
 const mapStateToProps = (state: ReduxState) => {
 	return {
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch: Function) => {
 						});
 						isLogin('true');
 					} else {
-						AsyncStorage.clear();
+						// AsyncStorage.clear();
 						isLogin('false');
 					}
 				}),

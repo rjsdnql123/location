@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { User, LoginProps } from '../reducer/type';
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
 
 import * as config from '../../env';
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
@@ -34,7 +34,7 @@ class Login extends Component<LoginProps, User> {
 					console.log(res);
 					if (res.status === 200) {
 						//성공시 메인 페이지
-						await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
+						// await AsyncStorage.setItem('USERTOKEN', res.data.accessToken);
 						this.props.information({ user_Id: res.data.userId });
 						this.props.isLogin('true');
 						return alert('로그인 성공');

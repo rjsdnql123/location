@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
-import rootReducer from './reducer';
-import AuthLoding from './containers/AuthLoding';
+import rootReducer from './src/reducer';
+import AuthLoding from './src/containers/AuthLoding';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 declare global {
